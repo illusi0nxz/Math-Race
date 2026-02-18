@@ -11,7 +11,6 @@
             --gray:#636e72;--light:#dfe6e9;
         }
         *{margin:0;padding:0;box-sizing:border-box}
-
         body{
             font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
             background:linear-gradient(135deg,#0c0c1d 0%,#1a1a3e 50%,#0f2460 100%);
@@ -19,7 +18,6 @@
             padding:8px;overflow-x:hidden;color:var(--dark);
             -webkit-tap-highlight-color:transparent;
         }
-
         @keyframes bounceIn{0%{transform:scale(.3);opacity:0}50%{transform:scale(1.05)}70%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
         @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
@@ -38,52 +36,29 @@
         .floating-star{position:absolute;animation:starFloat linear infinite;opacity:.25}
         .celebration-layer{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:200}
         .confetti-piece{position:absolute;border-radius:2px;animation:confettiFall linear forwards}
-
         .container{position:relative;z-index:1;width:100%;max-width:950px}
-
         .screen{display:none;animation:bounceIn .5s ease}
         .screen.active{display:block}
-
-        .card{
-            background:white;border-radius:22px;padding:22px;
-            box-shadow:0 12px 45px rgba(0,0,0,.35);text-align:center;margin-bottom:15px;
-        }
+        .card{background:white;border-radius:22px;padding:22px;box-shadow:0 12px 45px rgba(0,0,0,.35);text-align:center;margin-bottom:15px}
 
         .home-mascot{font-size:60px;animation:bounce 2s infinite;display:block;margin-bottom:8px}
         .home-title{font-size:2em;color:var(--red);text-shadow:2px 2px 0 #ffeaa7;margin-bottom:3px}
         .home-sub{font-size:1em;color:#999;margin-bottom:20px}
-
         .mode-buttons{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:18px 0}
-        .mode-btn{
-            padding:16px 24px;border:none;border-radius:18px;font-size:1.05em;
-            font-weight:bold;color:white;cursor:pointer;transition:all .3s;
-            min-width:180px;box-shadow:0 6px 20px rgba(0,0,0,.2);
-            -webkit-appearance:none;appearance:none;
-        }
+        .mode-btn{padding:16px 24px;border:none;border-radius:18px;font-size:1.05em;font-weight:bold;color:white;cursor:pointer;transition:all .3s;min-width:180px;box-shadow:0 6px 20px rgba(0,0,0,.2);-webkit-appearance:none}
         .mode-btn:hover,.mode-btn:active{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
         .mode-solo{background:linear-gradient(135deg,#0984e3,#74b9ff)}
         .mode-host{background:linear-gradient(135deg,#e74c3c,#fd79a8)}
         .mode-join{background:linear-gradient(135deg,#00b894,#55efc4)}
 
         .field-label{display:block;font-size:1em;color:#555;margin-bottom:6px;text-align:left;margin-left:8px}
-        .text-input{
-            width:100%;max-width:300px;font-size:1.1em;padding:10px 14px;
-            border:3px solid var(--light);border-radius:14px;text-align:center;
-            outline:none;transition:border-color .3s;
-            -webkit-appearance:none;appearance:none;
-        }
+        .text-input{width:100%;max-width:300px;font-size:1.1em;padding:10px 14px;border:3px solid var(--light);border-radius:14px;text-align:center;outline:none;transition:border-color .3s;-webkit-appearance:none}
         .text-input:focus{border-color:var(--red)}
-
         .section-title{font-size:1.15em;color:var(--dark);margin:18px 0 8px}
         .option-grid{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:6px}
-        .option-btn{
-            padding:9px 16px;border:3px solid transparent;border-radius:13px;
-            font-size:.9em;font-weight:bold;cursor:pointer;transition:all .25s;
-            min-width:95px;color:white;-webkit-appearance:none;appearance:none;
-        }
+        .option-btn{padding:9px 16px;border:3px solid transparent;border-radius:13px;font-size:.9em;font-weight:bold;cursor:pointer;transition:all .25s;min-width:95px;color:white;-webkit-appearance:none}
         .option-btn:hover,.option-btn:active{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,.2)}
         .option-btn.selected{border-color:var(--dark);transform:scale(1.05)}
-
         .opt-easy{background:linear-gradient(135deg,#00b894,#00cec9)}
         .opt-medium{background:linear-gradient(135deg,#fdcb6e,#f39c12)}
         .opt-hard{background:linear-gradient(135deg,#e74c3c,#fd79a8)}
@@ -92,35 +67,20 @@
         .opt-mul{background:linear-gradient(135deg,#00b894,#55efc4)}
         .opt-div{background:linear-gradient(135deg,#6c5ce7,#a29bfe)}
         .opt-all{background:linear-gradient(135deg,#fdcb6e,#f39c12)}
-
         .desc-text{font-size:.8em;color:#999;min-height:16px;margin-top:4px}
 
         .racer-picker{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:8px 0}
-        .racer-option{
-            font-size:2em;padding:6px 10px;border:3px solid var(--light);
-            border-radius:13px;cursor:pointer;transition:all .25s;background:white;
-            -webkit-appearance:none;
-        }
+        .racer-option{font-size:2em;padding:6px 10px;border:3px solid var(--light);border-radius:13px;cursor:pointer;transition:all .25s;background:white;-webkit-appearance:none}
         .racer-option:hover,.racer-option:active{transform:scale(1.12);border-color:var(--red)}
         .racer-option.selected{border-color:var(--red);background:#fff5f5;transform:scale(1.12)}
 
-        .big-btn{
-            margin-top:18px;padding:14px 40px;font-size:1.2em;font-weight:bold;
-            color:white;border:none;border-radius:20px;cursor:pointer;
-            transition:all .3s;box-shadow:0 8px 25px rgba(0,0,0,.3);
-            -webkit-appearance:none;appearance:none;
-        }
+        .big-btn{margin-top:18px;padding:14px 40px;font-size:1.2em;font-weight:bold;color:white;border:none;border-radius:20px;cursor:pointer;transition:all .3s;box-shadow:0 8px 25px rgba(0,0,0,.3);-webkit-appearance:none}
         .big-btn:hover:not(:disabled),.big-btn:active:not(:disabled){transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,.4)}
         .big-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
         .btn-red{background:linear-gradient(135deg,#e74c3c,#fd79a8)}
         .btn-green{background:linear-gradient(135deg,#00b894,#55efc4)}
         .btn-blue{background:linear-gradient(135deg,#0984e3,#74b9ff)}
-
-        .back-btn{
-            display:inline-block;margin-bottom:12px;padding:7px 16px;font-size:.85em;
-            background:none;border:2px solid #ddd;border-radius:11px;cursor:pointer;
-            color:#888;transition:all .2s;-webkit-appearance:none;
-        }
+        .back-btn{display:inline-block;margin-bottom:12px;padding:7px 16px;font-size:.85em;background:none;border:2px solid #ddd;border-radius:11px;cursor:pointer;color:#888;transition:all .2s;-webkit-appearance:none}
         .back-btn:hover,.back-btn:active{border-color:#aaa;color:#555}
 
         .ai-config-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;text-align:left}
@@ -132,228 +92,102 @@
         .ai-slider{width:100%;margin:3px 0;cursor:pointer;accent-color:var(--red)}
         .ai-speed-label{font-size:.7em;color:var(--orange);font-weight:bold}
 
-        .room-code-display{
-            font-size:2.2em;font-weight:bold;letter-spacing:7px;color:var(--red);
-            background:#fff5f5;border-radius:14px;padding:12px 22px;display:inline-block;
-            margin:8px 0;border:3px dashed var(--red);user-select:all;cursor:pointer;
-        }
+        .room-code-display{font-size:2.2em;font-weight:bold;letter-spacing:7px;color:var(--red);background:#fff5f5;border-radius:14px;padding:12px 22px;display:inline-block;margin:8px 0;border:3px dashed var(--red);user-select:all;cursor:pointer}
         .room-code-display:active{animation:pulse .3s}
         .copy-hint{font-size:.8em;color:#aaa;margin-bottom:12px}
-
         .players-lobby{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
-        .lobby-player{
-            background:#f0f8ff;border-radius:12px;padding:8px 14px;text-align:center;
-            min-width:80px;border:2px solid #bee3f8;animation:popIn .4s ease;
-        }
+        .lobby-player{background:#f0f8ff;border-radius:12px;padding:8px 14px;text-align:center;min-width:80px;border:2px solid #bee3f8;animation:popIn .4s ease}
         .lobby-player.is-host{border-color:var(--red);background:#fff5f5}
         .lobby-player .lp-emoji{font-size:1.6em;display:block}
         .lobby-player .lp-name{font-size:.8em;font-weight:bold;color:var(--dark)}
         .lobby-player .lp-tag{font-size:.65em;color:var(--red);font-weight:bold}
-
         .lobby-ai-list{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}
         .lobby-ai{background:#f8f9fa;border-radius:8px;padding:5px 10px;font-size:.8em;color:var(--gray)}
-
         .lobby-status{font-size:.95em;color:#999;margin:8px 0}
         .join-input{font-size:1.6em;font-weight:bold;letter-spacing:5px;text-transform:uppercase;max-width:220px}
 
-        .game-top-bar{
-            display:flex;justify-content:space-between;align-items:center;
-            background:rgba(255,255,255,.12);backdrop-filter:blur(10px);
-            border-radius:14px;padding:8px 14px;margin-bottom:8px;
-            color:white;flex-wrap:wrap;gap:5px;
-        }
+        .game-top-bar{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);border-radius:14px;padding:8px 14px;margin-bottom:8px;color:white;flex-wrap:wrap;gap:5px}
         .player-info{font-weight:bold;font-size:.95em}
         .timer-display{font-size:1.1em;font-weight:bold;font-variant-numeric:tabular-nums}
         .timer-display.warning{animation:timerPulse .5s infinite}
         .stats-bar{display:flex;gap:10px;font-size:.85em}
         .stat{display:flex;align-items:center;gap:3px}
 
-        .race-track-wrapper{
-            background:linear-gradient(180deg,#e8eaed,#c8ced3);border-radius:16px;
-            padding:10px;margin-bottom:8px;box-shadow:inset 0 3px 12px rgba(0,0,0,.12);overflow:hidden;
-        }
+        .race-track-wrapper{background:linear-gradient(180deg,#e8eaed,#c8ced3);border-radius:16px;padding:10px;margin-bottom:8px;box-shadow:inset 0 3px 12px rgba(0,0,0,.12);overflow:hidden}
         .race-track-title{text-align:center;font-size:.85em;color:var(--gray);margin-bottom:6px;font-weight:bold}
         .race-lane{display:flex;align-items:center;margin-bottom:3px;height:34px;position:relative}
-        .lane-label{
-            width:75px;font-size:.65em;font-weight:bold;color:var(--dark);text-align:right;
-            padding-right:5px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-        }
-        .lane-track{
-            flex:1;height:28px;background:linear-gradient(90deg,#ffeaa7,#fdcb6e);
-            border-radius:14px;position:relative;overflow:visible;border:2px solid var(--orange);
-        }
-        .lane-track.human-lane{
-            background:linear-gradient(90deg,#81ecec,#00cec9);border-color:var(--green);
-            height:32px;border-radius:16px;
-        }
+        .lane-label{width:75px;font-size:.65em;font-weight:bold;color:var(--dark);text-align:right;padding-right:5px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .lane-track{flex:1;height:28px;background:linear-gradient(90deg,#ffeaa7,#fdcb6e);border-radius:14px;position:relative;overflow:visible;border:2px solid var(--orange)}
+        .lane-track.human-lane{background:linear-gradient(90deg,#81ecec,#00cec9);border-color:var(--green);height:32px;border-radius:16px}
         .lane-track.ai-lane{background:linear-gradient(90deg,#ffeaa7,#fdcb6e);opacity:.85}
-        .racer-icon{
-            position:absolute;top:50%;transform:translateY(-50%);font-size:1.3em;
-            transition:left .6s cubic-bezier(.25,.46,.45,.94);z-index:2;
-            filter:drop-shadow(1px 1px 2px rgba(0,0,0,.25));left:1%;
-        }
+        .racer-icon{position:absolute;top:50%;transform:translateY(-50%);font-size:1.3em;transition:left .6s cubic-bezier(.25,.46,.45,.94);z-index:2;filter:drop-shadow(1px 1px 2px rgba(0,0,0,.25));left:1%}
         .racer-icon.moving{animation:racerBounce .3s ease 2}
         .human-lane .racer-icon{font-size:1.5em}
         .finish-flag{position:absolute;right:2px;top:50%;transform:translateY(-50%);font-size:.85em;z-index:1}
         .checkpoint{position:absolute;top:50%;transform:translateY(-50%);font-size:.55em;opacity:.3}
 
-        .question-card{
-            background:white;border-radius:18px;padding:18px;
-            box-shadow:0 8px 35px rgba(0,0,0,.22);text-align:center;
-        }
+        .question-card{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 35px rgba(0,0,0,.22);text-align:center}
         .q-number{font-size:.78em;color:#b2bec3;margin-bottom:2px}
-        .q-type-badge{
-            display:inline-block;padding:3px 11px;border-radius:16px;
-            font-size:.72em;font-weight:bold;color:white;margin-bottom:10px;
-        }
-        .badge-add{background:var(--blue)}.badge-sub{background:#e17055}
-        .badge-mul{background:var(--green)}.badge-div{background:var(--purple)}
-
+        .q-type-badge{display:inline-block;padding:3px 11px;border-radius:16px;font-size:.72em;font-weight:bold;color:white;margin-bottom:10px}
+        .badge-add{background:var(--blue)}.badge-sub{background:#e17055}.badge-mul{background:var(--green)}.badge-div{background:var(--purple)}
         .question-display{font-size:2.4em;font-weight:bold;color:var(--dark);margin:10px 0;letter-spacing:3px}
         .question-display .q-op{color:var(--red)}
-
         .answer-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:10px 0}
-        .answer-input{
-            font-size:1.6em;font-weight:bold;padding:10px 16px;border:4px solid var(--light);
-            border-radius:14px;text-align:center;width:140px;outline:none;transition:all .3s;
-            color:var(--dark);-webkit-appearance:none;appearance:none;
-        }
+        .answer-input{font-size:1.6em;font-weight:bold;padding:10px 16px;border:4px solid var(--light);border-radius:14px;text-align:center;width:140px;outline:none;transition:all .3s;color:var(--dark);-webkit-appearance:none}
         .answer-input:focus{border-color:var(--red);box-shadow:0 0 12px rgba(231,76,60,.15)}
         .answer-input.correct-flash{border-color:var(--green);background:#f0fff4;animation:pulse .35s}
         .answer-input.wrong-flash{border-color:var(--red);background:#fff5f5;animation:shake .45s}
-
-        .submit-btn{
-            padding:10px 24px;font-size:1.1em;font-weight:bold;color:white;
-            background:linear-gradient(135deg,var(--red),var(--pink));
-            border:none;border-radius:13px;cursor:pointer;transition:all .3s;
-            -webkit-appearance:none;appearance:none;
-        }
+        .submit-btn{padding:10px 24px;font-size:1.1em;font-weight:bold;color:white;background:linear-gradient(135deg,var(--red),var(--pink));border:none;border-radius:13px;cursor:pointer;transition:all .3s;-webkit-appearance:none}
         .submit-btn:hover,.submit-btn:active{transform:translateY(-2px);box-shadow:0 5px 18px rgba(231,76,60,.3)}
         .submit-btn:disabled{opacity:.4;cursor:not-allowed}
-
         .feedback-area{min-height:40px;margin:6px 0 3px;font-size:1em;font-weight:bold}
         .fb-emoji{font-size:1.4em;display:block;margin-bottom:2px}
         .fb-correct{color:var(--green)}.fb-wrong{color:var(--red)}
-
-        .hint-box{
-            background:#fff9e6;border:2px solid #ffd200;border-radius:11px;
-            padding:8px 12px;margin-top:5px;text-align:left;font-size:.85em;
-            color:#555;display:none;animation:slideDown .3s ease;
-        }
+        .hint-box{background:#fff9e6;border:2px solid #ffd200;border-radius:11px;padding:8px 12px;margin-top:5px;text-align:left;font-size:.85em;color:#555;display:none;animation:slideDown .3s ease}
         .hint-box strong{color:var(--orange)}
-
-        .float-text{
-            position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-            font-size:1.6em;font-weight:bold;pointer-events:none;z-index:210;
-            animation:floatUp 1.2s ease forwards;text-shadow:2px 2px 4px rgba(0,0,0,.4);
-        }
-
-        .countdown-overlay{
-            display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-            background:rgba(0,0,0,.7);z-index:300;justify-content:center;align-items:center;
-        }
+        .float-text{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.6em;font-weight:bold;pointer-events:none;z-index:210;animation:floatUp 1.2s ease forwards;text-shadow:2px 2px 4px rgba(0,0,0,.4)}
+        .countdown-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:300;justify-content:center;align-items:center}
         .countdown-overlay.active{display:flex}
-        .countdown-number{
-            font-size:6em;font-weight:bold;color:white;
-            text-shadow:0 0 40px rgba(255,255,255,.4);animation:bounceIn .45s ease;
-        }
+        .countdown-number{font-size:6em;font-weight:bold;color:white;text-shadow:0 0 40px rgba(255,255,255,.4);animation:bounceIn .45s ease}
 
         .results-trophy{font-size:65px;margin:6px 0}
         .results-title{font-size:1.8em;color:var(--red);margin-bottom:3px}
         .results-subtitle{font-size:.95em;color:#888;margin-bottom:12px}
-
         .final-standings{margin:12px 0;text-align:left}
-        .standing-row{
-            display:flex;align-items:center;padding:8px 12px;border-radius:10px;
-            margin-bottom:4px;background:#f8f9fa;gap:7px;
-        }
+        .standing-row{display:flex;align-items:center;padding:8px 12px;border-radius:10px;margin-bottom:4px;background:#f8f9fa;gap:7px}
         .standing-row.is-you{background:linear-gradient(90deg,#dff9fb,#c7ecee);border:2px solid var(--cyan)}
         .standing-pos{font-size:1.1em;font-weight:bold;width:30px;text-align:center}
         .standing-emoji{font-size:1.2em}
         .standing-name{flex:1;font-weight:bold;font-size:.9em}
         .standing-pct{font-size:.78em;color:#888}
-
         .results-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
         .r-stat{background:#f8f9fa;border-radius:11px;padding:10px 6px}
         .r-stat-val{font-size:1.4em;font-weight:bold;color:var(--red)}
         .r-stat-lbl{font-size:.7em;color:#888;margin-top:2px}
-
         .results-msg{padding:10px;background:#f0fff4;border-radius:11px;font-size:.95em;color:#555;margin:10px 0}
-
         .wrong-review{text-align:left;margin:10px 0}
         .wrong-review h3{color:var(--red);margin-bottom:6px;text-align:center;font-size:1em}
-        .review-item{
-            display:flex;justify-content:space-between;align-items:center;
-            background:#fff5f5;border-radius:8px;padding:6px 10px;
-            margin-bottom:3px;flex-wrap:wrap;gap:3px;font-size:.85em;
-        }
+        .review-item{display:flex;justify-content:space-between;align-items:center;background:#fff5f5;border-radius:8px;padding:6px 10px;margin-bottom:3px;flex-wrap:wrap;gap:3px;font-size:.85em}
         .review-q{font-weight:bold}.review-a{color:var(--green);font-weight:bold}
-
         .btn-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:15px}
-        .secondary-btn{
-            padding:10px 24px;font-size:.95em;font-weight:bold;color:var(--red);
-            background:white;border:3px solid var(--red);border-radius:18px;
-            cursor:pointer;transition:all .3s;-webkit-appearance:none;
-        }
+        .secondary-btn{padding:10px 24px;font-size:.95em;font-weight:bold;color:var(--red);background:white;border:3px solid var(--red);border-radius:18px;cursor:pointer;transition:all .3s;-webkit-appearance:none}
         .secondary-btn:hover,.secondary-btn:active{background:#fff5f5}
-
         .waiting-dots::after{content:'';animation:dotPulse 1.5s steps(4,end) infinite}
-
-        .toast{
-            position:fixed;top:15px;left:50%;transform:translateX(-50%);
-            background:var(--dark);color:white;padding:10px 20px;border-radius:11px;
-            font-size:.95em;z-index:400;animation:slideDown .3s ease;
-            box-shadow:0 5px 20px rgba(0,0,0,.4);max-width:90%;text-align:center;
-        }
-        .toast.success{background:var(--green)}
-        .toast.error{background:var(--red)}
-
-        .conn-status{
-            position:fixed;bottom:8px;right:8px;padding:4px 10px;border-radius:8px;
-            font-size:.7em;font-weight:bold;z-index:50;display:none;
-        }
+        .toast{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:var(--dark);color:white;padding:10px 20px;border-radius:11px;font-size:.95em;z-index:400;animation:slideDown .3s ease;box-shadow:0 5px 20px rgba(0,0,0,.4);max-width:90%;text-align:center}
+        .toast.success{background:var(--green)}.toast.error{background:var(--red)}
+        .conn-status{position:fixed;bottom:8px;right:8px;padding:4px 10px;border-radius:8px;font-size:.7em;font-weight:bold;z-index:50;display:none}
         .conn-status.online{background:#00b894;color:white;display:block}
         .conn-status.offline{background:#636e72;color:white;display:block}
-
-        .loading-overlay{
-            display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-            background:rgba(0,0,0,.5);z-index:350;justify-content:center;align-items:center;
-            flex-direction:column;gap:12px;
-        }
+        .loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:350;justify-content:center;align-items:center;flex-direction:column;gap:12px}
         .loading-overlay.active{display:flex}
-        .spinner{
-            width:45px;height:45px;border:5px solid rgba(255,255,255,.3);
-            border-top-color:white;border-radius:50%;animation:spinLoad .8s linear infinite;
-        }
+        .spinner{width:45px;height:45px;border:5px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spinLoad .8s linear infinite}
         .loading-text{color:white;font-size:1em;font-weight:bold}
 
-        .offline-note{
-            background:#fff3cd;border:2px solid #ffc107;border-radius:10px;
-            padding:8px 12px;margin-top:10px;font-size:.8em;color:#856404;
-        }
-
         @media(max-width:600px){
-            .home-title{font-size:1.5em}
-            .question-display{font-size:1.9em}
-            .answer-input{font-size:1.3em;width:115px;padding:8px 12px}
-            .lane-label{width:50px;font-size:.55em}
-            .racer-icon{font-size:1.1em}
-            .human-lane .racer-icon{font-size:1.25em}
-            .results-stats{grid-template-columns:1fr 1fr}
-            .ai-config-grid{grid-template-columns:1fr}
-            .room-code-display{font-size:1.6em;letter-spacing:4px;padding:10px 16px}
-            .mode-btn{min-width:150px;padding:12px 18px;font-size:.95em}
-            .card{padding:16px}
-            .race-lane{height:30px}
-            .lane-track{height:24px;border-radius:12px}
-            .lane-track.human-lane{height:28px;border-radius:14px}
-            .countdown-number{font-size:4em}
+            .home-title{font-size:1.5em}.question-display{font-size:1.9em}.answer-input{font-size:1.3em;width:115px;padding:8px 12px}.lane-label{width:50px;font-size:.55em}.racer-icon{font-size:1.1em}.human-lane .racer-icon{font-size:1.25em}.results-stats{grid-template-columns:1fr 1fr}.ai-config-grid{grid-template-columns:1fr}.room-code-display{font-size:1.6em;letter-spacing:4px;padding:10px 16px}.mode-btn{min-width:150px;padding:12px 18px;font-size:.95em}.card{padding:16px}.race-lane{height:30px}.lane-track{height:24px;border-radius:12px}.lane-track.human-lane{height:28px;border-radius:14px}.countdown-number{font-size:4em}
         }
-
         @media(max-width:380px){
-            .question-display{font-size:1.6em}
-            .answer-input{font-size:1.1em;width:100px}
-            .submit-btn{padding:8px 18px;font-size:1em}
+            .question-display{font-size:1.6em}.answer-input{font-size:1.1em;width:100px}.submit-btn{padding:8px 18px;font-size:1em}
         }
     </style>
 </head>
@@ -361,13 +195,8 @@
 
 <div class="stars-bg" id="starsBg"></div>
 <div class="celebration-layer" id="celebrationLayer"></div>
-<div class="countdown-overlay" id="countdownOverlay">
-    <div class="countdown-number" id="countdownNum">3</div>
-</div>
-<div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-    <div class="loading-text" id="loadingText">Connecting...</div>
-</div>
+<div class="countdown-overlay" id="countdownOverlay"><div class="countdown-number" id="countdownNum">3</div></div>
+<div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div><div class="loading-text" id="loadingText">Connecting...</div></div>
 <div class="conn-status" id="connStatus"></div>
 
 <div class="container">
@@ -392,28 +221,21 @@
         <div class="card">
             <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
             <h2 class="section-title" id="setupTitle">⚙️ Game Setup</h2>
-
             <label class="field-label">👋 Your Name</label>
             <input type="text" id="setupName" class="text-input" placeholder="Type your name..." maxlength="12" autocomplete="off">
-
             <h3 class="section-title">🎯 Choose Your Racer</h3>
             <div class="racer-picker" id="setupRacerPicker"></div>
-
             <h3 class="section-title">📐 Topic</h3>
             <div class="option-grid" id="setupTopicGrid"></div>
             <p class="desc-text" id="setupTopicDesc">Pick a topic!</p>
-
             <h3 class="section-title">⚡ Difficulty</h3>
             <div class="option-grid" id="setupDiffGrid"></div>
             <p class="desc-text" id="setupDiffDesc">Pick a level!</p>
-
             <h3 class="section-title">🏁 Race Length</h3>
             <div class="option-grid" id="setupLengthGrid"></div>
-
             <h3 class="section-title">🤖 AI Challengers</h3>
-            <p class="desc-text">Set each AI's speed (0 = Off, 100 = Very Fast)</p>
+            <p class="desc-text">Set each AI's speed (0=Off, 100=Answers in ~2 seconds!)</p>
             <div class="ai-config-grid" id="aiConfigGrid"></div>
-
             <button class="big-btn btn-red" id="setupGoBtn" onclick="setupGo()" disabled>
                 <span id="setupGoBtnText">Start Solo Race! 🏁</span>
             </button>
@@ -426,16 +248,12 @@
             <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
             <span style="font-size:45px;display:block;margin-bottom:8px;">🚪</span>
             <h2 class="section-title">Join a Room</h2>
-
             <label class="field-label">👋 Your Name</label>
             <input type="text" id="joinName" class="text-input" placeholder="Your name..." maxlength="12" autocomplete="off">
-
             <h3 class="section-title" style="margin-top:14px;">🎯 Choose Your Racer</h3>
             <div class="racer-picker" id="joinRacerPicker"></div>
-
             <h3 class="section-title" style="margin-top:14px;">🔑 Room Code</h3>
             <input type="text" id="joinCode" class="text-input join-input" placeholder="ABCD" maxlength="4" autocomplete="off">
-
             <br>
             <button class="big-btn btn-green" id="joinGoBtn" onclick="joinRoom()" disabled>Join Room! 🚀</button>
         </div>
@@ -448,28 +266,21 @@
             <h2 class="section-title">Race Lobby</h2>
             <div>
                 <p style="color:#888;font-size:.85em;">Share this code with friends:</p>
-                <div class="room-code-display" id="lobbyRoomCode" onclick="copyRoomCode()" title="Tap to copy">----</div>
+                <div class="room-code-display" id="lobbyRoomCode" onclick="copyRoomCode()">----</div>
                 <p class="copy-hint">Tap the code to copy!</p>
             </div>
-            <div>
-                <h3 class="section-title">👥 Players</h3>
-                <div class="players-lobby" id="lobbyPlayers"></div>
-            </div>
-            <div>
-                <h3 class="section-title">🤖 AI Racers</h3>
-                <div class="lobby-ai-list" id="lobbyAIList"></div>
-            </div>
-            <div>
-                <p style="color:#999;font-size:.8em;margin-top:6px;">
-                    Topic: <strong id="lobbyTopic">-</strong> |
-                    Difficulty: <strong id="lobbyDiff">-</strong> |
-                    Questions: <strong id="lobbyQs">-</strong>
-                </p>
-            </div>
+            <h3 class="section-title">👥 Players</h3>
+            <div class="players-lobby" id="lobbyPlayers"></div>
+            <h3 class="section-title">🤖 AI Racers</h3>
+            <div class="lobby-ai-list" id="lobbyAIList"></div>
+            <p style="color:#999;font-size:.8em;margin-top:6px;">
+                Topic: <strong id="lobbyTopic">-</strong> |
+                Difficulty: <strong id="lobbyDiff">-</strong> |
+                Questions: <strong id="lobbyQs">-</strong>
+            </p>
             <p class="lobby-status" id="lobbyStatus">Waiting for host to start<span class="waiting-dots"></span></p>
             <button class="big-btn btn-red" id="lobbyStartBtn" onclick="hostStartGame()" style="display:none;">Start Race! 🏁</button>
-            <br>
-            <button class="back-btn" onclick="leaveLobby()" style="margin-top:10px;">Leave Room</button>
+            <br><button class="back-btn" onclick="leaveLobby()" style="margin-top:10px;">Leave Room</button>
         </div>
     </div>
 
@@ -491,13 +302,12 @@
         <div class="question-card" id="questionCard">
             <div class="q-number" id="qNumber">Question 1</div>
             <span class="q-type-badge" id="qTypeBadge">Addition</span>
-            <div class="question-display" id="questionDisplay">
+            <div class="question-display">
                 <span id="qN1">3</span> <span class="q-op" id="qOp">+</span>
                 <span id="qN2">4</span> <span class="q-op">=</span> <span class="q-op">?</span>
             </div>
             <div class="answer-row">
-                <input type="number" id="answerInput" class="answer-input" placeholder="?" autocomplete="off"
-                    inputmode="numeric" pattern="[0-9]*">
+                <input type="number" id="answerInput" class="answer-input" placeholder="?" autocomplete="off" inputmode="numeric" pattern="[0-9]*">
                 <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Go! ✔️</button>
             </div>
             <div class="feedback-area" id="feedbackArea"></div>
@@ -525,10 +335,8 @@
             </div>
         </div>
     </div>
-
 </div>
 
-<!-- Firebase SDK (loads from Google CDN - does NOT use your Firebase quota) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -547,7 +355,7 @@ const FIREBASE_CONFIG = {
 };
 
 // ================================================================
-//  LAZY FIREBASE — only connects when Host/Join clicked
+//  LAZY FIREBASE
 // ================================================================
 let firebaseReady = false;
 let db = null;
@@ -555,81 +363,51 @@ let db = null;
 async function initFirebase() {
     if (firebaseReady && db) return true;
     showLoading('Connecting to server...');
-
     try {
         if (typeof firebase === 'undefined') {
             hideLoading();
-            toast('Firebase SDK not loaded. Check your internet and refresh the page.', 'error');
+            toast('Firebase SDK not loaded. Check internet and refresh.', 'error');
             return false;
         }
-
         if (!firebase.apps || firebase.apps.length === 0) {
             firebase.initializeApp(FIREBASE_CONFIG);
         }
         db = firebase.database();
 
-        // Test connection with timeout
         const connected = await new Promise((resolve) => {
-            let resolved = false;
-            const timeout = setTimeout(() => {
-                if (!resolved) { resolved = true; resolve(false); }
-            }, 8000);
-
+            let done = false;
+            const tmout = setTimeout(() => { if (!done) { done = true; resolve(false); } }, 8000);
             db.ref('.info/connected').on('value', snap => {
-                const el = document.getElementById('connStatus');
+                const el = $('connStatus');
                 if (snap.val() === true) {
-                    el.className = 'conn-status online';
-                    el.textContent = '🟢 Online';
-                    if (!resolved) { resolved = true; clearTimeout(timeout); resolve(true); }
+                    el.className = 'conn-status online'; el.textContent = '🟢 Online';
+                    if (!done) { done = true; clearTimeout(tmout); resolve(true); }
                 } else {
-                    el.className = 'conn-status offline';
-                    el.textContent = '⚫ Connecting...';
+                    el.className = 'conn-status offline'; el.textContent = '⚫ Connecting...';
                 }
             });
-
-            // Also try a simple read
             db.ref('.info/connected').once('value').then(() => {
-                if (!resolved) { resolved = true; clearTimeout(timeout); resolve(true); }
-            }).catch(() => {
-                if (!resolved) { resolved = true; clearTimeout(timeout); resolve(false); }
-            });
+                if (!done) { done = true; clearTimeout(tmout); resolve(true); }
+            }).catch(() => { if (!done) { done = true; clearTimeout(tmout); resolve(false); } });
         });
-
         hideLoading();
-
-        if (connected) {
-            firebaseReady = true;
-            return true;
-        } else {
-            toast('Could not connect. Check your internet and try again.', 'error');
-            return false;
-        }
-
-    } catch (e) {
-        hideLoading();
-        console.error('Firebase error:', e);
-        toast('Connection error: ' + e.message, 'error');
+        if (connected) { firebaseReady = true; return true; }
+        toast('Could not connect. Check internet.', 'error');
         return false;
+    } catch (e) {
+        hideLoading(); toast('Connection error: ' + e.message, 'error'); return false;
     }
 }
 
 function disconnectFirebase() {
-    if (db && S.roomRef && S.myId) {
-        try { S.roomRef.child('players/' + S.myId).remove(); } catch(e) {}
-    }
+    if (db && S.roomRef && S.myId) { try { S.roomRef.child('players/' + S.myId).remove(); } catch(e) {} }
     S.unsubscribers.forEach(fn => { try { fn(); } catch(e) {} });
-    S.unsubscribers = [];
-    S.roomRef = null;
-    document.getElementById('connStatus').style.display = 'none';
+    S.unsubscribers = []; S.roomRef = null;
+    $('connStatus').style.display = 'none';
 }
 
-function showLoading(t) {
-    document.getElementById('loadingText').textContent = t || 'Loading...';
-    document.getElementById('loadingOverlay').classList.add('active');
-}
-function hideLoading() {
-    document.getElementById('loadingOverlay').classList.remove('active');
-}
+function showLoading(t) { $('loadingText').textContent = t || 'Loading...'; $('loadingOverlay').classList.add('active'); }
+function hideLoading() { $('loadingOverlay').classList.remove('active'); }
 
 // ================================================================
 //  CONSTANTS
@@ -638,9 +416,9 @@ const RACERS = ['🏎️','🚗','🚕','🏍️','🚀','🛸','🐎','🐢','�
 
 const DEFAULT_AI = [
     { name:'Turbo Tina', emoji:'🦊', speed:95 },
-    { name:'Speedy Sam', emoji:'🐇', speed:75 },
-    { name:'Steady Eddie', emoji:'🐶', speed:55 },
-    { name:'Slowpoke Sue', emoji:'🐢', speed:40 },
+    { name:'Speedy Sam', emoji:'🐇', speed:70 },
+    { name:'Steady Eddie', emoji:'🐶', speed:45 },
+    { name:'Slowpoke Sue', emoji:'🐢', speed:25 },
 ];
 
 const TOPICS = [
@@ -653,7 +431,7 @@ const TOPICS = [
 const TOPIC_DESC = {add:'Addition — adding numbers',sub:'Subtraction — taking away',mul:'Multiplication — times tables',div:'Division — sharing equally',all:'Everything mixed!'};
 const TOPIC_NAMES = {add:'Addition',sub:'Subtraction',mul:'Multiplication',div:'Division',all:'Mixed'};
 const DIFFS = [{id:'easy',label:'🌱 Easy',cls:'opt-easy'},{id:'medium',label:'🌟 Medium',cls:'opt-medium'},{id:'hard',label:'🔥 Hard',cls:'opt-hard'}];
-const DIFF_DESC = {easy:'Small friendly numbers!',medium:'Bigger numbers — a challenge!',hard:'Large numbers — for champions!'};
+const DIFF_DESC = {easy:'Small friendly numbers!',medium:'Bigger numbers — a challenge!',hard:'Big numbers & tricky times tables!'};
 const DIFF_NAMES = {easy:'Easy',medium:'Medium',hard:'Hard'};
 const LENGTHS = [{id:10,label:'10 Qs'},{id:15,label:'15 Qs'},{id:20,label:'20 Qs'}];
 const CHEERS = ["Amazing! 🌟","Super! ⭐","Brilliant! 💎","On fire! 🔥","Wow! 🚀","Fantastic! 🎉","Way to go! 💪","Math star! ✨"];
@@ -674,18 +452,16 @@ function resetState() {
         roomCode:'', roomRef:null, isHost:false,
         qIndex:0, correct:0, wrong:0, streak:0, bestStreak:0,
         progress:0, timerSec:0, timerIntv:null,
-        aiProgress:[], aiIntv:null,
+        aiProgress:[], aiIntv:null, aiFinishTimes:[],
         currentQ:null, answered:false, raceFinished:false,
         finishOrder:[], wrongList:[], autoNextTimer:null,
         sharedQuestions:null, roomData:null, unsubscribers:[],
+        raceStartTime:0, playerFinishTime:0,
     };
 }
 
 function genId(){ return 'p_'+Math.random().toString(36).substr(2,9); }
-function genRoomCode(){
-    const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let r='';for(let i=0;i<4;i++)r+=c[Math.floor(Math.random()*c.length)];return r;
-}
+function genRoomCode(){ const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let r='';for(let i=0;i<4;i++)r+=c[Math.floor(Math.random()*c.length)];return r; }
 
 // ================================================================
 //  UI INIT
@@ -696,213 +472,74 @@ function genRoomCode(){
     buildRacerPicker('joinRacerPicker','join');
     buildOptGrid('setupTopicGrid',TOPICS,'topic','setup');
     buildOptGrid('setupDiffGrid',DIFFS,'diff','setup');
-    buildLenGrid();
-    buildAICfg();
-
+    buildLenGrid(); buildAICfg();
     $('setupName').addEventListener('input',chkSetup);
     $('joinName').addEventListener('input',chkJoin);
-    $('joinCode').addEventListener('input',function(){
-        this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'');chkJoin();
-    });
+    $('joinCode').addEventListener('input',function(){ this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,''); chkJoin(); });
     $('joinCode').addEventListener('keydown',e=>{if(e.key==='Enter')joinRoom();});
-    $('answerInput').addEventListener('keydown',e=>{
-        if(e.key==='Enter'&&!S.answered)checkAnswer();
-    });
-    $('answerInput').addEventListener('input',function(){
-        this.value=this.value.replace(/[^0-9\-]/g,'');
-    });
+    $('answerInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!S.answered)checkAnswer();});
+    $('answerInput').addEventListener('input',function(){this.value=this.value.replace(/[^0-9\-]/g,'');});
 })();
 
 function $(id){return document.getElementById(id);}
 
-function createStars(){
-    const bg=$('starsBg');const sy=['⭐','✨','🌟','💫'];
-    for(let i=0;i<12;i++){
-        const s=document.createElement('span');s.className='floating-star';
-        s.textContent=sy[i%sy.length];s.style.left=Math.random()*100+'%';
-        s.style.fontSize=(10+Math.random()*12)+'px';
-        s.style.animationDuration=(10+Math.random()*15)+'s';
-        s.style.animationDelay=Math.random()*12+'s';
-        bg.appendChild(s);
-    }
-}
+function createStars(){ const bg=$('starsBg');const sy=['⭐','✨','🌟','💫'];for(let i=0;i<12;i++){const s=document.createElement('span');s.className='floating-star';s.textContent=sy[i%sy.length];s.style.left=Math.random()*100+'%';s.style.fontSize=(10+Math.random()*12)+'px';s.style.animationDuration=(10+Math.random()*15)+'s';s.style.animationDelay=Math.random()*12+'s';bg.appendChild(s);}}
 
-function buildRacerPicker(cid,pfx){
-    const c=$(cid);c.innerHTML='';
-    RACERS.forEach((em,i)=>{
-        const d=document.createElement('div');
-        d.className='racer-option'+(i===0?' selected':'');
-        d.textContent=em;
-        d.onclick=()=>{
-            c.querySelectorAll('.racer-option').forEach(x=>x.classList.remove('selected'));
-            d.classList.add('selected');S.racerEmoji=em;
-            if(pfx==='setup')chkSetup();if(pfx==='join')chkJoin();
-        };
-        c.appendChild(d);
-    });
-}
+function buildRacerPicker(cid,pfx){const c=$(cid);c.innerHTML='';RACERS.forEach((em,i)=>{const d=document.createElement('div');d.className='racer-option'+(i===0?' selected':'');d.textContent=em;d.onclick=()=>{c.querySelectorAll('.racer-option').forEach(x=>x.classList.remove('selected'));d.classList.add('selected');S.racerEmoji=em;if(pfx==='setup')chkSetup();if(pfx==='join')chkJoin();};c.appendChild(d);});}
 
-function buildOptGrid(cid,opts,field,pfx){
-    const c=$(cid);c.innerHTML='';
-    opts.forEach(o=>{
-        const b=document.createElement('button');b.className='option-btn '+o.cls;b.textContent=o.label;
-        b.onclick=()=>{
-            c.querySelectorAll('.option-btn').forEach(x=>x.classList.remove('selected'));
-            b.classList.add('selected');S[field]=o.id;
-            const dm=field==='topic'?TOPIC_DESC:DIFF_DESC;
-            const de=$(pfx+(field==='topic'?'TopicDesc':'DiffDesc'));
-            if(de)de.textContent=dm[o.id];chkSetup();
-        };
-        c.appendChild(b);
-    });
-}
+function buildOptGrid(cid,opts,field,pfx){const c=$(cid);c.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.className='option-btn '+o.cls;b.textContent=o.label;b.onclick=()=>{c.querySelectorAll('.option-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');S[field]=o.id;const dm=field==='topic'?TOPIC_DESC:DIFF_DESC;const de=$(pfx+(field==='topic'?'TopicDesc':'DiffDesc'));if(de)de.textContent=dm[o.id];chkSetup();};c.appendChild(b);});}
 
-function buildLenGrid(){
-    const c=$('setupLengthGrid');c.innerHTML='';
-    LENGTHS.forEach((l,i)=>{
-        const b=document.createElement('button');
-        b.className='option-btn opt-medium'+(i===1?' selected':'');
-        b.textContent=l.label;if(i===1)S.totalQs=l.id;
-        b.onclick=()=>{
-            c.querySelectorAll('.option-btn').forEach(x=>x.classList.remove('selected'));
-            b.classList.add('selected');S.totalQs=l.id;
-        };
-        c.appendChild(b);
-    });
-}
+function buildLenGrid(){const c=$('setupLengthGrid');c.innerHTML='';LENGTHS.forEach((l,i)=>{const b=document.createElement('button');b.className='option-btn opt-medium'+(i===1?' selected':'');b.textContent=l.label;if(i===1)S.totalQs=l.id;b.onclick=()=>{c.querySelectorAll('.option-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');S.totalQs=l.id;};c.appendChild(b);});}
 
-function buildAICfg(){
-    const c=$('aiConfigGrid');c.innerHTML='';
-    S.aiConfig=DEFAULT_AI.map(a=>({...a}));
-    S.aiConfig.forEach((ai,i)=>{
-        const card=document.createElement('div');card.className='ai-card';
-        card.innerHTML=`<div class="ai-card-header">
-                <span class="ai-card-emoji">${ai.emoji}</span>
-                <span class="ai-card-name">${ai.name}</span>
-            </div>
-            <label>Speed: <span class="ai-speed-label" id="aiSL${i}">${ai.speed}%</span></label>
-            <input type="range" class="ai-slider" min="0" max="100" value="${ai.speed}"
-                id="aiS${i}" oninput="setAISpd(${i},this.value)">
-            <small style="color:#aaa;font-size:.7em;">0=Off, 100=Very Fast</small>`;
-        c.appendChild(card);
-    });
-}
+function buildAICfg(){const c=$('aiConfigGrid');c.innerHTML='';S.aiConfig=DEFAULT_AI.map(a=>({...a}));S.aiConfig.forEach((ai,i)=>{const card=document.createElement('div');card.className='ai-card';card.innerHTML=`<div class="ai-card-header"><span class="ai-card-emoji">${ai.emoji}</span><span class="ai-card-name">${ai.name}</span></div><label>Speed: <span class="ai-speed-label" id="aiSL${i}">${ai.speed}%</span></label><input type="range" class="ai-slider" min="0" max="100" value="${ai.speed}" id="aiS${i}" oninput="setAISpd(${i},this.value)"><small style="color:#aaa;font-size:.7em;">0=Off, 100=~2s per question</small>`;c.appendChild(card);});}
 
-function setAISpd(i,v){
-    v=parseInt(v);S.aiConfig[i].speed=v;
-    $('aiSL'+i).textContent=v===0?'OFF':v+'%';
-}
-
-function chkSetup(){
-    $('setupGoBtn').disabled=!($('setupName').value.trim().length>0&&S.topic&&S.diff);
-}
-
-function chkJoin(){
-    const n=$('joinName').value.trim().length>0;
-    const c=$('joinCode').value.trim().length===4;
-    $('joinGoBtn').disabled=!(n&&c);
-}
+function setAISpd(i,v){v=parseInt(v);S.aiConfig[i].speed=v;$('aiSL'+i).textContent=v===0?'OFF':v+'%';}
+function chkSetup(){$('setupGoBtn').disabled=!($('setupName').value.trim().length>0&&S.topic&&S.diff);}
+function chkJoin(){$('joinGoBtn').disabled=!($('joinName').value.trim().length>0&&$('joinCode').value.trim().length===4);}
 
 // ================================================================
 //  SCREEN NAV
 // ================================================================
-function showScreen(id){
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    const el=$(id);el.classList.remove('active');void el.offsetWidth;el.classList.add('active');
-    window.scrollTo(0,0);
-}
-
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=$(id);el.classList.remove('active');void el.offsetWidth;el.classList.add('active');window.scrollTo(0,0);}
 function goHome(){cleanup();S=resetState();buildAICfg();showScreen('homeScreen');}
-
-function goSetup(mode){
-    S.mode=mode;S.isHost=(mode==='host');
-    $('setupTitle').textContent=mode==='host'?'👑 Host Game Setup':'🎮 Solo Race Setup';
-    $('setupGoBtnText').textContent=mode==='host'?'Create Room! 🏟️':'Start Solo Race! 🏁';
-    showScreen('setupScreen');
-}
+function goSetup(mode){S.mode=mode;S.isHost=(mode==='host');$('setupTitle').textContent=mode==='host'?'👑 Host Game Setup':'🎮 Solo Race Setup';$('setupGoBtnText').textContent=mode==='host'?'Create Room! 🏟️':'Start Solo Race! 🏁';showScreen('setupScreen');}
 
 // ================================================================
 //  SETUP GO
 // ================================================================
-async function setupGo(){
-    S.name=$('setupName').value.trim();
-    if(!S.name||!S.topic||!S.diff)return;
-    if(S.mode==='solo')startSolo();
-    else if(S.mode==='host')await createRoom();
-}
+async function setupGo(){S.name=$('setupName').value.trim();if(!S.name||!S.topic||!S.diff)return;if(S.mode==='solo')startSolo();else if(S.mode==='host')await createRoom();}
 
-function startSolo(){
-    S.sharedQuestions=genAllQs();initGame();showScreen('gameScreen');
-    runCountdown(()=>{buildTrack();beginRace();});
-}
+function startSolo(){S.sharedQuestions=genAllQs();initGame();showScreen('gameScreen');runCountdown(()=>{buildTrack();beginRace();});}
 
 // ================================================================
-//  HOST — CREATE ROOM
+//  HOST CREATE ROOM
 // ================================================================
 async function createRoom(){
-    const ok=await initFirebase();
-    if(!ok)return;
-
+    const ok=await initFirebase(); if(!ok)return;
     S.roomCode=genRoomCode();
-    const rd={
-        code:S.roomCode,hostId:S.myId,
-        settings:{topic:S.topic,diff:S.diff,totalQs:S.totalQs,
-            aiConfig:S.aiConfig.map(a=>({name:a.name,emoji:a.emoji,speed:a.speed}))},
-        state:'lobby',players:{},questions:genAllQs(),startTime:null,
-    };
-    rd.players[S.myId]={name:S.name,emoji:S.racerEmoji,isHost:true,
-        progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0};
-
+    const rd={code:S.roomCode,hostId:S.myId,settings:{topic:S.topic,diff:S.diff,totalQs:S.totalQs,aiConfig:S.aiConfig.map(a=>({name:a.name,emoji:a.emoji,speed:a.speed}))},state:'lobby',players:{},questions:genAllQs(),startTime:null};
+    rd.players[S.myId]={name:S.name,emoji:S.racerEmoji,isHost:true,progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0};
     S.roomRef=db.ref('rooms/'+S.roomCode);
-
-    try{
-        await S.roomRef.set(rd);
-        S.roomRef.child('players/'+S.myId).onDisconnect().remove();
-        listenRoom();showScreen('lobbyScreen');
-        $('lobbyRoomCode').textContent=S.roomCode;
-        $('lobbyStartBtn').style.display='inline-block';
-        toast('Room created! Share the code.','success');
-    }catch(e){toast('Error: '+e.message,'error');}
+    try{await S.roomRef.set(rd);S.roomRef.child('players/'+S.myId).onDisconnect().remove();listenRoom();showScreen('lobbyScreen');$('lobbyRoomCode').textContent=S.roomCode;$('lobbyStartBtn').style.display='inline-block';toast('Room created! Share the code.','success');}catch(e){toast('Error: '+e.message,'error');}
 }
 
 // ================================================================
 //  JOIN ROOM
 // ================================================================
 async function joinRoom(){
-    S.name=$('joinName').value.trim();
-    S.roomCode=$('joinCode').value.trim().toUpperCase();
+    S.name=$('joinName').value.trim();S.roomCode=$('joinCode').value.trim().toUpperCase();
     if(!S.name||S.roomCode.length!==4)return;
-
-    const ok=await initFirebase();
-    if(!ok)return;
-
-    S.roomRef=db.ref('rooms/'+S.roomCode);
-    S.mode='join';S.isHost=false;
-
+    const ok=await initFirebase();if(!ok)return;
+    S.roomRef=db.ref('rooms/'+S.roomCode);S.mode='join';S.isHost=false;
     try{
-        showLoading('Joining room...');
-        const snap=await S.roomRef.once('value');
-        const data=snap.val();hideLoading();
-
-        if(!data){toast('Room not found! Check the code.','error');return;}
+        showLoading('Joining room...');const snap=await S.roomRef.once('value');const data=snap.val();hideLoading();
+        if(!data){toast('Room not found!','error');return;}
         if(data.state!=='lobby'){toast('Race already started!','error');return;}
-
         const names=Object.values(data.players||{}).map(p=>p.name.toLowerCase());
-        if(names.includes(S.name.toLowerCase())){toast('Name taken! Choose another.','error');return;}
-
-        S.topic=data.settings.topic;S.diff=data.settings.diff;
-        S.totalQs=data.settings.totalQs;
-        S.aiConfig=(data.settings.aiConfig||[]).map(a=>({...a}));
-
-        await S.roomRef.child('players/'+S.myId).set({
-            name:S.name,emoji:S.racerEmoji,isHost:false,
-            progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0});
-
-        S.roomRef.child('players/'+S.myId).onDisconnect().remove();
-        listenRoom();showScreen('lobbyScreen');
-        $('lobbyRoomCode').textContent=S.roomCode;
-        $('lobbyStartBtn').style.display='none';
-        toast('Joined room '+S.roomCode+'!','success');
+        if(names.includes(S.name.toLowerCase())){toast('Name taken!','error');return;}
+        S.topic=data.settings.topic;S.diff=data.settings.diff;S.totalQs=data.settings.totalQs;S.aiConfig=(data.settings.aiConfig||[]).map(a=>({...a}));
+        await S.roomRef.child('players/'+S.myId).set({name:S.name,emoji:S.racerEmoji,isHost:false,progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0});
+        S.roomRef.child('players/'+S.myId).onDisconnect().remove();listenRoom();showScreen('lobbyScreen');$('lobbyRoomCode').textContent=S.roomCode;$('lobbyStartBtn').style.display='none';toast('Joined!','success');
     }catch(e){hideLoading();toast('Error: '+e.message,'error');}
 }
 
@@ -911,78 +548,27 @@ async function joinRoom(){
 // ================================================================
 function listenRoom(){
     const h=S.roomRef.on('value',snap=>{
-        const d=snap.val();
-        if(!d){toast('Room was closed.','error');goHome();return;}
+        const d=snap.val();if(!d){toast('Room closed.','error');goHome();return;}
         S.roomData=d;updateLobby(d);
-
-        if(d.state==='countdown'&&$('lobbyScreen').classList.contains('active'))
-            startMPCountdown(d);
-        if(d.state==='racing'&&$('gameScreen').classList.contains('active'))
-            updateMPTrack(d);
-        if(d.state==='finished'&&!S.raceFinished){
-            S.raceFinished=true;
-            clearInterval(S.timerIntv);clearInterval(S.aiIntv);clearTimeout(S.autoNextTimer);
-            setTimeout(()=>showMPResults(d),800);
-        }
+        if(d.state==='countdown'&&$('lobbyScreen').classList.contains('active'))startMPCountdown(d);
+        if(d.state==='racing'&&$('gameScreen').classList.contains('active'))updateMPTrack(d);
+        if(d.state==='finished'&&!S.raceFinished){S.raceFinished=true;clearInterval(S.timerIntv);clearInterval(S.aiIntv);clearTimeout(S.autoNextTimer);setTimeout(()=>showMPResults(d),800);}
     });
     S.unsubscribers.push(()=>S.roomRef.off('value',h));
 }
 
 function updateLobby(d){
-    const pe=$('lobbyPlayers');pe.innerHTML='';
-    const pl=d.players||{};
-    Object.entries(pl).forEach(([id,p])=>{
-        const div=document.createElement('div');
-        div.className='lobby-player'+(p.isHost?' is-host':'');
-        div.innerHTML=`<span class="lp-emoji">${p.emoji}</span>
-            <span class="lp-name">${p.name}</span>
-            ${p.isHost?'<span class="lp-tag">HOST</span>':''}`;
-        pe.appendChild(div);
-    });
-
-    const ae=$('lobbyAIList');ae.innerHTML='';
-    (d.settings.aiConfig||[]).forEach(ai=>{
-        if(ai.speed>0){
-            const div=document.createElement('div');div.className='lobby-ai';
-            div.textContent=`${ai.emoji} ${ai.name} (${ai.speed}%)`;ae.appendChild(div);
-        }
-    });
-
-    $('lobbyTopic').textContent=TOPIC_NAMES[d.settings.topic]||d.settings.topic;
-    $('lobbyDiff').textContent=DIFF_NAMES[d.settings.diff]||d.settings.diff;
-    $('lobbyQs').textContent=d.settings.totalQs;
-
-    if(S.isHost){
-        $('lobbyStartBtn').style.display='inline-block';
-        const cnt=Object.keys(pl).length;
-        $('lobbyStatus').innerHTML=`${cnt} player${cnt>1?'s':''} ready. Press Start!`;
-    }else{
-        $('lobbyStartBtn').style.display='none';
-        $('lobbyStatus').innerHTML='Waiting for host to start<span class="waiting-dots"></span>';
-    }
+    const pe=$('lobbyPlayers');pe.innerHTML='';const pl=d.players||{};
+    Object.entries(pl).forEach(([id,p])=>{const div=document.createElement('div');div.className='lobby-player'+(p.isHost?' is-host':'');div.innerHTML=`<span class="lp-emoji">${p.emoji}</span><span class="lp-name">${p.name}</span>${p.isHost?'<span class="lp-tag">HOST</span>':''}`;pe.appendChild(div);});
+    const ae=$('lobbyAIList');ae.innerHTML='';(d.settings.aiConfig||[]).forEach(ai=>{if(ai.speed>0){const div=document.createElement('div');div.className='lobby-ai';div.textContent=`${ai.emoji} ${ai.name} (${ai.speed}%)`;ae.appendChild(div);}});
+    $('lobbyTopic').textContent=TOPIC_NAMES[d.settings.topic]||'';$('lobbyDiff').textContent=DIFF_NAMES[d.settings.diff]||'';$('lobbyQs').textContent=d.settings.totalQs;
+    if(S.isHost){$('lobbyStartBtn').style.display='inline-block';const cnt=Object.keys(pl).length;$('lobbyStatus').innerHTML=`${cnt} player${cnt>1?'s':''} ready. Press Start!`;}
+    else{$('lobbyStartBtn').style.display='none';$('lobbyStatus').innerHTML='Waiting for host to start<span class="waiting-dots"></span>';}
 }
 
-// ================================================================
-//  HOST START
-// ================================================================
-async function hostStartGame(){
-    if(!S.isHost||!S.roomRef)return;
-    try{await S.roomRef.update({state:'countdown',startTime:firebase.database.ServerValue.TIMESTAMP});}
-    catch(e){toast('Error: '+e.message,'error');}
-}
+async function hostStartGame(){if(!S.isHost||!S.roomRef)return;try{await S.roomRef.update({state:'countdown',startTime:firebase.database.ServerValue.TIMESTAMP});}catch(e){toast('Error: '+e.message,'error');}}
 
-function startMPCountdown(d){
-    S.topic=d.settings.topic;S.diff=d.settings.diff;
-    S.totalQs=d.settings.totalQs;
-    S.aiConfig=(d.settings.aiConfig||[]).map(a=>({...a}));
-    S.sharedQuestions=d.questions||[];
-    initGame();showScreen('gameScreen');
-    runCountdown(async()=>{
-        buildTrack();
-        if(S.isHost){try{await S.roomRef.update({state:'racing'});}catch(e){}}
-        beginRace();
-    });
-}
+function startMPCountdown(d){S.topic=d.settings.topic;S.diff=d.settings.diff;S.totalQs=d.settings.totalQs;S.aiConfig=(d.settings.aiConfig||[]).map(a=>({...a}));S.sharedQuestions=d.questions||[];initGame();showScreen('gameScreen');runCountdown(async()=>{buildTrack();if(S.isHost){try{await S.roomRef.update({state:'racing'});}catch(e){}}beginRace();});}
 
 // ================================================================
 //  GAME INIT
@@ -992,30 +578,17 @@ function initGame(){
     S.progress=0;S.timerSec=0;S.raceFinished=false;
     S.finishOrder=[];S.wrongList=[];S.answered=false;
     S.aiProgress=S.aiConfig.map(()=>0);
-
+    S.aiFinishTimes=S.aiConfig.map(()=>0);
+    S.raceStartTime=0;S.playerFinishTime=0;
     $('gamePlayerName').textContent='⭐ '+S.name;
-    $('correctStat').textContent='0';
-    $('wrongStat').textContent='0';
-    $('streakStat').textContent='0';
-    $('timerDisplay').textContent='⏱️ 0:00';
-    $('timerDisplay').classList.remove('warning');
+    $('correctStat').textContent='0';$('wrongStat').textContent='0';$('streakStat').textContent='0';
+    $('timerDisplay').textContent='⏱️ 0:00';$('timerDisplay').classList.remove('warning');
 }
 
 // ================================================================
 //  COUNTDOWN
 // ================================================================
-function runCountdown(cb){
-    const ov=$('countdownOverlay'),ne=$('countdownNum');
-    ov.classList.add('active');let c=3;
-    ne.textContent=c;ne.style.color='white';
-    ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';
-    const iv=setInterval(()=>{
-        c--;
-        if(c>0){ne.textContent=c;ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';}
-        else if(c===0){ne.textContent='GO!';ne.style.color='#00b894';ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';}
-        else{clearInterval(iv);ov.classList.remove('active');cb();}
-    },800);
-}
+function runCountdown(cb){const ov=$('countdownOverlay'),ne=$('countdownNum');ov.classList.add('active');let c=3;ne.textContent=c;ne.style.color='white';ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';const iv=setInterval(()=>{c--;if(c>0){ne.textContent=c;ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';}else if(c===0){ne.textContent='GO!';ne.style.color='#00b894';ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';}else{clearInterval(iv);ov.classList.remove('active');cb();}},800);}
 
 // ================================================================
 //  RACE TRACK
@@ -1023,67 +596,64 @@ function runCountdown(cb){
 function buildTrack(){
     const t=$('raceTrack');t.innerHTML='';
     t.appendChild(mkLane(S.name,S.racerEmoji,'human-lane','myRacer'));
-    if(S.mode!=='solo'&&S.roomData){
-        Object.entries(S.roomData.players||{}).forEach(([id,p])=>{
-            if(id!==S.myId)t.appendChild(mkLane(p.name,p.emoji,'human-lane','racer_'+id));
-        });
-    }
-    S.aiConfig.forEach((ai,i)=>{
-        if(ai.speed>0)t.appendChild(mkLane(ai.name,ai.emoji,'ai-lane','aiR'+i));
-    });
+    if(S.mode!=='solo'&&S.roomData){Object.entries(S.roomData.players||{}).forEach(([id,p])=>{if(id!==S.myId)t.appendChild(mkLane(p.name,p.emoji,'human-lane','racer_'+id));});}
+    S.aiConfig.forEach((ai,i)=>{if(ai.speed>0)t.appendChild(mkLane(ai.name,ai.emoji,'ai-lane','aiR'+i));});
 }
 
-function mkLane(name,emoji,cls,rid){
-    const lane=document.createElement('div');lane.className='race-lane';
-    const lb=document.createElement('div');lb.className='lane-label';lb.textContent=name;
-    const tk=document.createElement('div');tk.className='lane-track '+cls;
-    [25,50,75].forEach(p=>{
-        const cp=document.createElement('span');cp.className='checkpoint';
-        cp.style.left=p+'%';cp.textContent='🏳️';tk.appendChild(cp);
-    });
-    const rc=document.createElement('span');rc.className='racer-icon';
-    rc.id=rid;rc.textContent=emoji;rc.style.left='1%';tk.appendChild(rc);
-    const fl=document.createElement('span');fl.className='finish-flag';
-    fl.textContent='🏁';tk.appendChild(fl);
-    lane.appendChild(lb);lane.appendChild(tk);return lane;
-}
+function mkLane(name,emoji,cls,rid){const lane=document.createElement('div');lane.className='race-lane';const lb=document.createElement('div');lb.className='lane-label';lb.textContent=name;const tk=document.createElement('div');tk.className='lane-track '+cls;[25,50,75].forEach(p=>{const cp=document.createElement('span');cp.className='checkpoint';cp.style.left=p+'%';cp.textContent='🏳️';tk.appendChild(cp);});const rc=document.createElement('span');rc.className='racer-icon';rc.id=rid;rc.textContent=emoji;rc.style.left='1%';tk.appendChild(rc);const fl=document.createElement('span');fl.className='finish-flag';fl.textContent='🏁';tk.appendChild(fl);lane.appendChild(lb);lane.appendChild(tk);return lane;}
 
-function moveR(id,prog){
-    const el=$(id);if(!el)return;
-    el.style.left=1+(Math.min(100,prog)/100)*87+'%';
-    el.classList.remove('moving');void el.offsetWidth;el.classList.add('moving');
-    setTimeout(()=>el.classList.remove('moving'),800);
-}
+function moveR(id,prog){const el=$(id);if(!el)return;el.style.left=1+(Math.min(100,prog)/100)*87+'%';el.classList.remove('moving');void el.offsetWidth;el.classList.add('moving');setTimeout(()=>el.classList.remove('moving'),800);}
 
 // ================================================================
 //  RACE BEGIN
 // ================================================================
-function beginRace(){startTmr();startAI();genQ();}
-
-function startTmr(){
-    S.timerIntv=setInterval(()=>{
-        if(S.raceFinished)return;S.timerSec++;
-        const m=Math.floor(S.timerSec/60),s=S.timerSec%60;
-        const d=$('timerDisplay');
-        d.textContent='⏱️ '+m+':'+(s<10?'0':'')+s;
-        if(S.timerSec>120)d.classList.add('warning');
-    },1000);
+function beginRace(){
+    S.raceStartTime = Date.now();
+    startTmr(); startAI(); genQ();
 }
 
+function startTmr(){S.timerIntv=setInterval(()=>{if(S.raceFinished)return;S.timerSec++;const m=Math.floor(S.timerSec/60),s=S.timerSec%60;const d=$('timerDisplay');d.textContent='⏱️ '+m+':'+(s<10?'0':'')+s;if(S.timerSec>120)d.classList.add('warning');},1000);}
+
+// ================================================================
+//  AI ENGINE — FIXED: Speed 100 = ~2 seconds per question
+// ================================================================
 function startAI(){
-    S.aiIntv=setInterval(()=>{
-        if(S.raceFinished)return;
-        S.aiConfig.forEach((ai,i)=>{
-            if(ai.speed<=0||S.aiProgress[i]>=100)return;
-            const bt=S.totalQs*6,bi=100/bt;
-            const inc=bi*(ai.speed/100)*(0.6+Math.random()*0.8);
-            S.aiProgress[i]=Math.min(100,S.aiProgress[i]+inc);
-            moveR('aiR'+i,S.aiProgress[i]);
-            if(S.aiProgress[i]>=100&&!S.finishOrder.includes('ai_'+i)){
-                S.finishOrder.push('ai_'+i);chkEnd();
+    // AI speed formula:
+    // At speed=100: AI takes ~2 seconds per question → finishes totalQs in ~totalQs*2 seconds
+    // At speed=50:  AI takes ~4 seconds per question → finishes totalQs in ~totalQs*4 seconds
+    // At speed=25:  AI takes ~8 seconds per question → finishes totalQs in ~totalQs*8 seconds
+    // At speed=10:  AI takes ~20 seconds per question → very slow
+    //
+    // Using 500ms tick interval:
+    // Progress per tick = (100/totalQs) / (secsPerQ / 0.5)
+    // secsPerQ at speed X = 2 / (X/100) = 200/X
+    // ticksPerQ = secsPerQ / 0.5 = 400/X
+    // progressPerTick = (100/totalQs) / (400/X) = X / (4 * totalQs)
+
+    S.aiIntv = setInterval(() => {
+        if (S.raceFinished) return;
+
+        S.aiConfig.forEach((ai, i) => {
+            if (ai.speed <= 0 || S.aiProgress[i] >= 100) return;
+
+            // Core formula: higher speed = faster progress
+            const progressPerTick = ai.speed / (4 * S.totalQs);
+
+            // Add small randomness (±30%) to feel natural
+            const jitter = 0.7 + Math.random() * 0.6;
+            const inc = progressPerTick * jitter;
+
+            S.aiProgress[i] = Math.min(100, S.aiProgress[i] + inc);
+            moveR('aiR' + i, S.aiProgress[i]);
+
+            // AI finished!
+            if (S.aiProgress[i] >= 100 && !S.finishOrder.includes('ai_' + i)) {
+                S.aiFinishTimes[i] = Date.now();
+                S.finishOrder.push('ai_' + i);
+                chkEnd();
             }
         });
-    },500);
+    }, 500);
 }
 
 // ================================================================
@@ -1095,61 +665,69 @@ function genQ(){
     if(S.raceFinished)return;
     if(S.qIndex>=S.totalQs){finishP();return;}
     clearTimeout(S.autoNextTimer);S.qIndex++;S.answered=false;
-
     let q;
     if(S.sharedQuestions&&S.sharedQuestions.length>=S.qIndex)q=S.sharedQuestions[S.qIndex-1];
     else q=mkQ(S.topic,S.diff);
     S.currentQ=q;
-
     $('qNumber').textContent=`Question ${S.qIndex} of ${S.totalQs}`;
     const bg=$('qTypeBadge');
     const tN={add:'Addition',sub:'Subtraction',mul:'Multiplication',div:'Division'};
     const tC={add:'badge-add',sub:'badge-sub',mul:'badge-mul',div:'badge-div'};
     bg.textContent=tN[q.type];bg.className='q-type-badge '+tC[q.type];
     $('qN1').textContent=q.num1;$('qOp').textContent=q.opSymbol;$('qN2').textContent=q.num2;
-
-    const inp=$('answerInput');
-    inp.value='';inp.className='answer-input';inp.disabled=false;
-    $('submitBtn').disabled=false;
-    $('feedbackArea').innerHTML='';$('hintBox').style.display='none';
-
-    const card=$('questionCard');
-    card.style.animation='none';card.offsetWidth;card.style.animation='slideDown .35s ease';
-
-    // Focus with slight delay for mobile keyboards
+    const inp=$('answerInput');inp.value='';inp.className='answer-input';inp.disabled=false;
+    $('submitBtn').disabled=false;$('feedbackArea').innerHTML='';$('hintBox').style.display='none';
+    const card=$('questionCard');card.style.animation='none';card.offsetWidth;card.style.animation='slideDown .35s ease';
     setTimeout(()=>inp.focus(),100);
 }
 
-function mkQ(topic,diff){
-    let type=topic;
-    if(type==='all'){const ts=['add','sub','mul','div'];type=ts[Math.floor(Math.random()*ts.length)];}
-    let n1,n2,answer,opSymbol;
-    switch(type){
-        case 'add':opSymbol='+';
-            if(diff==='easy'){n1=rand(1,10);n2=rand(1,10);}
-            else if(diff==='medium'){n1=rand(5,50);n2=rand(5,50);}
-            else{n1=rand(20,100);n2=rand(20,100);}
-            answer=n1+n2;break;
-        case 'sub':opSymbol='−';
-            if(diff==='easy'){n1=rand(3,15);n2=rand(1,n1-1);}
-            else if(diff==='medium'){n1=rand(20,60);n2=rand(5,n1-1);}
-            else{n1=rand(50,150);n2=rand(10,n1-1);}
-            answer=n1-n2;break;
-        case 'mul':opSymbol='×';
-            if(diff==='easy'){n1=rand(1,5);n2=rand(1,5);}
-            else if(diff==='medium'){n1=rand(2,9);n2=rand(2,9);}
-            else{n1=rand(3,12);n2=rand(3,12);}
-            answer=n1*n2;break;
-        case 'div':opSymbol='÷';
-            if(diff==='easy'){n2=rand(1,5);answer=rand(1,5);n1=n2*answer;}
-            else if(diff==='medium'){n2=rand(2,9);answer=rand(2,9);n1=n2*answer;}
-            else{n2=rand(3,12);answer=rand(3,12);n1=n2*answer;}
+// ================================================================
+//  QUESTION GENERATOR — FIXED HARD DIFFICULTY
+// ================================================================
+function mkQ(topic, diff) {
+    let type = topic;
+    if (type === 'all') {
+        const ts = ['add','sub','mul','div'];
+        type = ts[Math.floor(Math.random() * ts.length)];
+    }
+    let n1, n2, answer, opSymbol;
+
+    switch(type) {
+        case 'add':
+            opSymbol = '+';
+            if (diff === 'easy')        { n1 = rand(1, 10);  n2 = rand(1, 10); }
+            else if (diff === 'medium')  { n1 = rand(10, 50); n2 = rand(10, 50); }
+            else /* hard */             { n1 = rand(50, 200); n2 = rand(25, 200); }
+            answer = n1 + n2;
+            break;
+
+        case 'sub':
+            opSymbol = '−';
+            if (diff === 'easy')        { n1 = rand(5, 15);   n2 = rand(1, n1 - 1); }
+            else if (diff === 'medium')  { n1 = rand(20, 80);  n2 = rand(5, n1 - 1); }
+            else /* hard */             { n1 = rand(100, 300); n2 = rand(20, n1 - 1); }
+            answer = n1 - n2;
+            break;
+
+        case 'mul':
+            opSymbol = '×';
+            if (diff === 'easy')        { n1 = rand(1, 5);  n2 = rand(1, 5); }
+            else if (diff === 'medium')  { n1 = rand(2, 9);  n2 = rand(2, 9); }
+            else /* hard */             { n1 = rand(4, 12); n2 = rand(6, 15); }
+            answer = n1 * n2;
+            break;
+
+        case 'div':
+            opSymbol = '÷';
+            if (diff === 'easy')        { n2 = rand(1, 5);  answer = rand(1, 5);  n1 = n2 * answer; }
+            else if (diff === 'medium')  { n2 = rand(2, 9);  answer = rand(2, 9);  n1 = n2 * answer; }
+            else /* hard */             { n2 = rand(4, 12); answer = rand(5, 15); n1 = n2 * answer; }
             break;
     }
-    return{num1:n1,num2:n2,answer,opSymbol,type};
+    return { num1: n1, num2: n2, answer, opSymbol, type };
 }
 
-function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function rand(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
 
 // ================================================================
 //  CHECK ANSWER
@@ -1158,7 +736,6 @@ function checkAnswer(){
     if(S.answered||S.raceFinished)return;
     const inp=$('answerInput');const val=inp.value.trim();
     if(val===''){inp.className='answer-input wrong-flash';setTimeout(()=>inp.className='answer-input',500);return;}
-
     const ua=parseInt(val);const q=S.currentQ;
     S.answered=true;inp.disabled=true;$('submitBtn').disabled=true;
 
@@ -1168,30 +745,19 @@ function checkAnswer(){
         const ch=CHEERS[Math.floor(Math.random()*CHEERS.length)];
         $('feedbackArea').innerHTML=`<span class="fb-emoji">🎉</span><span class="fb-correct">${ch}</span>`;
         $('correctStat').textContent=S.correct;$('streakStat').textContent=S.streak;
-
         S.progress=Math.min(100,S.progress+100/S.totalQs);
         moveR('myRacer',S.progress);syncProg();confetti(5);floatTxt('+1 ⭐','#fdcb6e');
-
         if(S.progress>=100){finishP();return;}
-        S.autoNextTimer=setTimeout(()=>{
-            if(S.qIndex<S.totalQs&&!S.raceFinished)genQ();
-            else if(!S.raceFinished)finishP();
-        },AUTO_NEXT_CORRECT);
-
+        S.autoNextTimer=setTimeout(()=>{if(S.qIndex<S.totalQs&&!S.raceFinished)genQ();else if(!S.raceFinished)finishP();},AUTO_NEXT_CORRECT);
     }else{
         S.wrong++;S.streak=0;
         inp.className='answer-input wrong-flash';
         S.wrongList.push({q:`${q.num1} ${q.opSymbol} ${q.num2}`,correct:q.answer,given:ua});
         let dir=ua<q.answer?'bigger':'smaller';
-        $('feedbackArea').innerHTML=
-            `<span class="fb-emoji">😊</span><span class="fb-wrong">Not quite! Answer: <strong>${q.answer}</strong> (yours was too ${dir})</span>`;
+        $('feedbackArea').innerHTML=`<span class="fb-emoji">😊</span><span class="fb-wrong">Not quite! Answer: <strong>${q.answer}</strong> (yours was too ${dir})</span>`;
         showHint(q);
-        $('wrongStat').textContent=S.wrong;$('streakStat').textContent=S.streak;
-        syncProg();
-        S.autoNextTimer=setTimeout(()=>{
-            if(S.qIndex<S.totalQs&&!S.raceFinished)genQ();
-            else if(!S.raceFinished)finishP();
-        },AUTO_NEXT_WRONG);
+        $('wrongStat').textContent=S.wrong;$('streakStat').textContent=S.streak;syncProg();
+        S.autoNextTimer=setTimeout(()=>{if(S.qIndex<S.totalQs&&!S.raceFinished)genQ();else if(!S.raceFinished)finishP();},AUTO_NEXT_WRONG);
     }
 }
 
@@ -1208,9 +774,9 @@ function showHint(q){
             else h+=`Think: ${q.num2}+?=${q.num1} → ${q.num2}+<strong>${q.answer}</strong>=${q.num1}`;
             break;
         case 'mul':
-            let p=[];for(let i=1;i<=q.num1;i++)p.push(q.num2*i);
-            h+=`Skip count by ${q.num2}: `+p.slice(0,Math.min(q.num1,10)).join(', ');
-            if(q.num1>10)h+='...';h+=` → <strong>${q.answer}</strong>`;
+            let p=[];for(let i=1;i<=Math.min(q.num1,12);i++)p.push(q.num2*i);
+            h+=`Skip count by ${q.num2}: `+p.join(', ');
+            if(q.num1>12)h+='...';h+=` → <strong>${q.answer}</strong>`;
             break;
         case 'div':
             h+=`Think: ${q.num2} × ? = ${q.num1} → ${q.num2}×<strong>${q.answer}</strong>=${q.num1}`;
@@ -1222,97 +788,148 @@ function showHint(q){
 // ================================================================
 //  SYNC
 // ================================================================
-function syncProg(){
-    if(S.mode==='solo'||!S.roomRef||!db)return;
-    S.roomRef.child('players/'+S.myId).update({
-        progress:S.progress,correct:S.correct,wrong:S.wrong,qIndex:S.qIndex
-    }).catch(()=>{});
-}
-
-function updateMPTrack(d){
-    if(!d.players)return;
-    Object.entries(d.players).forEach(([id,p])=>{
-        if(id!==S.myId)moveR('racer_'+id,p.progress||0);
-    });
-}
+function syncProg(){if(S.mode==='solo'||!S.roomRef||!db)return;S.roomRef.child('players/'+S.myId).update({progress:S.progress,correct:S.correct,wrong:S.wrong,qIndex:S.qIndex}).catch(()=>{});}
+function updateMPTrack(d){if(!d.players)return;Object.entries(d.players).forEach(([id,p])=>{if(id!==S.myId)moveR('racer_'+id,p.progress||0);});}
 
 // ================================================================
-//  FINISH
+//  FINISH — FIXED: Track actual finish times
 // ================================================================
 function finishP(){
     if(S.finishOrder.includes('player')||S.raceFinished)return;
-    S.finishOrder.push('player');S.progress=100;
-    moveR('myRacer',100);clearTimeout(S.autoNextTimer);
+    S.playerFinishTime = Date.now();
+    S.finishOrder.push('player');
+    S.progress=100;moveR('myRacer',100);clearTimeout(S.autoNextTimer);
     $('answerInput').disabled=true;$('submitBtn').disabled=true;
-
-    if(S.mode!=='solo'&&S.roomRef&&db){
-        S.roomRef.child('players/'+S.myId).update({
-            progress:100,finished:true,finishTime:firebase.database.ServerValue.TIMESTAMP,
-            correct:S.correct,wrong:S.wrong
-        }).catch(()=>{});
-    }
+    if(S.mode!=='solo'&&S.roomRef&&db){S.roomRef.child('players/'+S.myId).update({progress:100,finished:true,finishTime:firebase.database.ServerValue.TIMESTAMP,correct:S.correct,wrong:S.wrong}).catch(()=>{});}
     setTimeout(()=>chkEnd(),500);
 }
 
 function chkEnd(){
     const pDone=S.progress>=100||S.qIndex>=S.totalQs;
     const aiDone=S.aiConfig.every((a,i)=>a.speed<=0||S.aiProgress[i]>=100);
-
     if(S.mode==='solo'){if(pDone||aiDone)endRace();}
-    else{
-        if(S.isHost&&pDone){
-            const d=S.roomData;if(d){
-                const allH=Object.values(d.players||{}).every(p=>p.finished||p.progress>=100);
-                if(allH||aiDone)S.roomRef.update({state:'finished'}).catch(()=>{});
-            }
-        }
-        if(pDone&&aiDone&&S.isHost)S.roomRef.update({state:'finished'}).catch(()=>{});
-    }
+    else{if(S.isHost&&pDone){const d=S.roomData;if(d){const allH=Object.values(d.players||{}).every(p=>p.finished||p.progress>=100);if(allH||aiDone)S.roomRef.update({state:'finished'}).catch(()=>{});}}}
 }
 
 function endRace(){
     if(S.raceFinished)return;S.raceFinished=true;
     clearInterval(S.timerIntv);clearInterval(S.aiIntv);clearTimeout(S.autoNextTimer);
     $('answerInput').disabled=true;$('submitBtn').disabled=true;
-    if(!S.finishOrder.includes('player'))S.finishOrder.push('player');
-    S.aiConfig.forEach((a,i)=>{const k='ai_'+i;if(a.speed>0&&!S.finishOrder.includes(k))S.finishOrder.push(k);});
+
+    // Record finish time for player if not already
+    if(!S.playerFinishTime) S.playerFinishTime = Date.now();
+
+    // Record finish times for any AI still running
+    S.aiConfig.forEach((a,i)=>{
+        if(a.speed>0 && !S.aiFinishTimes[i]) S.aiFinishTimes[i] = Date.now();
+    });
+
     if(S.mode==='solo')setTimeout(()=>showSoloRes(),1000);
 }
 
 // ================================================================
-//  RESULTS
+//  RESULTS — FIXED: Proper ranking by finish order and progress
 // ================================================================
 function showSoloRes(){
     showScreen('resultsScreen');
-    const e=[];
-    e.push({name:S.name,emoji:S.racerEmoji,progress:S.progress,isPlayer:true,isAI:false});
-    S.aiConfig.forEach((a,i)=>{if(a.speed>0)e.push({name:a.name,emoji:a.emoji,progress:S.aiProgress[i],isPlayer:false,isAI:true});});
-    e.sort((a,b)=>b.progress-a.progress);showRes(e);
+
+    // Build entries with finish time data for proper ranking
+    const entries = [];
+
+    // Player entry
+    entries.push({
+        name: S.name,
+        emoji: S.racerEmoji,
+        progress: S.progress,
+        isPlayer: true,
+        isAI: false,
+        finishTime: S.playerFinishTime || Infinity,
+        finished: S.progress >= 100
+    });
+
+    // AI entries
+    S.aiConfig.forEach((a, i) => {
+        if (a.speed > 0) {
+            entries.push({
+                name: a.name,
+                emoji: a.emoji,
+                progress: S.aiProgress[i],
+                isPlayer: false,
+                isAI: true,
+                finishTime: S.aiFinishTimes[i] || Infinity,
+                finished: S.aiProgress[i] >= 100
+            });
+        }
+    });
+
+    // Sort: finished racers first (by finish time), then unfinished (by progress descending)
+    entries.sort((a, b) => {
+        // Both finished: earlier finish time wins
+        if (a.finished && b.finished) return a.finishTime - b.finishTime;
+        // One finished, one didn't: finished one wins
+        if (a.finished && !b.finished) return -1;
+        if (!a.finished && b.finished) return 1;
+        // Neither finished: higher progress wins
+        return b.progress - a.progress;
+    });
+
+    showRes(entries);
 }
 
 function showMPResults(d){
     showScreen('resultsScreen');
-    const e=[];
-    Object.entries(d.players||{}).forEach(([id,p])=>{
-        e.push({name:p.name,emoji:p.emoji,progress:p.progress||0,isPlayer:(id===S.myId),isAI:false});
+    const entries = [];
+
+    // Human players
+    Object.entries(d.players || {}).forEach(([id, p]) => {
+        entries.push({
+            name: p.name,
+            emoji: p.emoji,
+            progress: p.progress || 0,
+            isPlayer: (id === S.myId),
+            isAI: false,
+            finishTime: p.finishTime || Infinity,
+            finished: p.finished || p.progress >= 100
+        });
     });
-    (d.settings.aiConfig||[]).forEach((a,i)=>{
-        if(a.speed>0)e.push({name:a.name,emoji:a.emoji,progress:S.aiProgress[i]||0,isPlayer:false,isAI:true});
+
+    // AI racers
+    (d.settings.aiConfig || []).forEach((a, i) => {
+        if (a.speed > 0) {
+            entries.push({
+                name: a.name,
+                emoji: a.emoji,
+                progress: S.aiProgress[i] || 0,
+                isPlayer: false,
+                isAI: true,
+                finishTime: S.aiFinishTimes[i] || Infinity,
+                finished: (S.aiProgress[i] || 0) >= 100
+            });
+        }
     });
-    e.sort((a,b)=>b.progress-a.progress);showRes(e);
+
+    // Sort: finished first by time, then unfinished by progress
+    entries.sort((a, b) => {
+        if (a.finished && b.finished) return a.finishTime - b.finishTime;
+        if (a.finished && !b.finished) return -1;
+        if (!a.finished && b.finished) return 1;
+        return b.progress - a.progress;
+    });
+
+    showRes(entries);
 }
 
 function showRes(entries){
     const pct=S.totalQs>0?Math.round((S.correct/S.totalQs)*100):0;
     const pos=entries.findIndex(e=>e.isPlayer)+1;
+
     let trophy,title;
     if(pos===1){trophy='🏆';title='YOU WON!';confetti(40);}
     else if(pos===2){trophy='🥈';title='2nd Place!';confetti(20);}
     else if(pos===3){trophy='🥉';title='3rd Place!';confetti(10);}
     else{trophy='⭐';title='Good Effort!';}
 
-    $('resultsTrophy').textContent=trophy;
-    $('resultsTitle').textContent=title;
+    $('resultsTrophy').textContent=trophy;$('resultsTitle').textContent=title;
     $('resultsSub').textContent=`Well done, ${S.name}! Position ${pos} of ${entries.length}`;
 
     const pe=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣'];
@@ -1320,10 +937,20 @@ function showRes(entries){
     entries.forEach((e,i)=>{
         const r=document.createElement('div');
         r.className='standing-row'+(e.isPlayer?' is-you':'');
+
+        // Show finish info
+        let statusText = Math.round(e.progress) + '%';
+        if (e.finished && S.raceStartTime) {
+            const secs = Math.round((e.finishTime - S.raceStartTime) / 1000);
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            statusText = '✅ ' + m + ':' + (s < 10 ? '0' : '') + s;
+        }
+
         r.innerHTML=`<span class="standing-pos">${pe[i]||i+1}</span>
             <span class="standing-emoji">${e.emoji}</span>
             <span class="standing-name">${e.name}${e.isPlayer?' (YOU)':''}${e.isAI?' 🤖':''}</span>
-            <span class="standing-pct">${Math.round(e.progress)}%</span>`;
+            <span class="standing-pct">${statusText}</span>`;
         el.appendChild(r);
     });
 
@@ -1348,11 +975,7 @@ function showRes(entries){
     const wr=$('wrongReview'),wl=$('wrongList');
     if(S.wrongList.length>0){
         wr.style.display='block';wl.innerHTML='';
-        S.wrongList.forEach(w=>{
-            const d=document.createElement('div');d.className='review-item';
-            d.innerHTML=`<span class="review-q">${w.q}</span><span>You: ${w.given}</span><span class="review-a">Answer: ${w.correct}</span>`;
-            wl.appendChild(d);
-        });
+        S.wrongList.forEach(w=>{const d=document.createElement('div');d.className='review-item';d.innerHTML=`<span class="review-q">${w.q}</span><span>You: ${w.given}</span><span class="review-a">Answer: ${w.correct}</span>`;wl.appendChild(d);});
     }else{wr.style.display='none';}
 }
 
@@ -1360,83 +983,20 @@ function showRes(entries){
 //  PLAY AGAIN / CLEANUP
 // ================================================================
 function playAgain(){
-    if(S.mode==='solo'){
-        S.sharedQuestions=genAllQs();initGame();showScreen('gameScreen');
-        runCountdown(()=>{buildTrack();beginRace();});
-    }else{
-        if(S.isHost&&S.roomRef){
-            S.roomRef.update({state:'lobby',questions:genAllQs(),startTime:null}).catch(()=>{});
-            Object.keys(S.roomData?.players||{}).forEach(id=>{
-                S.roomRef.child('players/'+id).update({
-                    progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0
-                }).catch(()=>{});
-            });
-        }
-        S.raceFinished=false;showScreen('lobbyScreen');
-    }
+    if(S.mode==='solo'){S.sharedQuestions=genAllQs();initGame();showScreen('gameScreen');runCountdown(()=>{buildTrack();beginRace();});}
+    else{if(S.isHost&&S.roomRef){S.roomRef.update({state:'lobby',questions:genAllQs(),startTime:null}).catch(()=>{});Object.keys(S.roomData?.players||{}).forEach(id=>{S.roomRef.child('players/'+id).update({progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0}).catch(()=>{});});}S.raceFinished=false;showScreen('lobbyScreen');}
 }
-
 function leaveLobby(){cleanup();S=resetState();buildAICfg();showScreen('homeScreen');}
+function cleanup(){clearInterval(S.timerIntv);clearInterval(S.aiIntv);clearTimeout(S.autoNextTimer);S.unsubscribers.forEach(fn=>{try{fn();}catch(e){}});S.unsubscribers=[];disconnectFirebase();}
 
-function cleanup(){
-    clearInterval(S.timerIntv);clearInterval(S.aiIntv);clearTimeout(S.autoNextTimer);
-    S.unsubscribers.forEach(fn=>{try{fn();}catch(e){}});S.unsubscribers=[];
-    disconnectFirebase();
-}
+function copyRoomCode(){const code=S.roomCode;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(()=>toast('Copied! '+code,'success')).catch(()=>fbCopy(code));}else{fbCopy(code);}}
+function fbCopy(t){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');toast('Copied! '+t,'success');}catch(e){toast('Code: '+t,'success');}document.body.removeChild(ta);}
 
-function copyRoomCode(){
-    const code=S.roomCode;
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-        navigator.clipboard.writeText(code).then(()=>toast('Code copied! '+code,'success'))
-        .catch(()=>fallbackCopy(code));
-    }else{fallbackCopy(code);}
-}
+function confetti(count){const c=$('celebrationLayer');const cols=['#e74c3c','#f39c12','#2ecc71','#3498db','#9b59b6','#e84393','#fdcb6e','#00cec9'];for(let i=0;i<count;i++){setTimeout(()=>{const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.top='-10px';p.style.backgroundColor=cols[Math.floor(Math.random()*cols.length)];p.style.animationDuration=(2+Math.random()*3)+'s';p.style.width=(6+Math.random()*10)+'px';p.style.height=(6+Math.random()*10)+'px';p.style.borderRadius=Math.random()>.5?'50%':'2px';c.appendChild(p);setTimeout(()=>p.remove(),5000);},i*70);}}
 
-function fallbackCopy(text){
-    const ta=document.createElement('textarea');ta.value=text;
-    ta.style.position='fixed';ta.style.opacity='0';
-    document.body.appendChild(ta);ta.focus();ta.select();
-    try{document.execCommand('copy');toast('Code copied! '+text,'success');}
-    catch(e){toast('Code: '+text+' (copy it manually)','success');}
-    document.body.removeChild(ta);
-}
-
-// ================================================================
-//  UTILITIES
-// ================================================================
-function confetti(count){
-    const c=$('celebrationLayer');
-    const cols=['#e74c3c','#f39c12','#2ecc71','#3498db','#9b59b6','#e84393','#fdcb6e','#00cec9'];
-    for(let i=0;i<count;i++){
-        setTimeout(()=>{
-            const p=document.createElement('div');p.className='confetti-piece';
-            p.style.left=Math.random()*100+'%';p.style.top='-10px';
-            p.style.backgroundColor=cols[Math.floor(Math.random()*cols.length)];
-            p.style.animationDuration=(2+Math.random()*3)+'s';
-            p.style.width=(6+Math.random()*10)+'px';
-            p.style.height=(6+Math.random()*10)+'px';
-            p.style.borderRadius=Math.random()>.5?'50%':'2px';
-            c.appendChild(p);setTimeout(()=>p.remove(),5000);
-        },i*70);
-    }
-}
-
-function floatTxt(text,color){
-    const el=document.createElement('div');el.className='float-text';
-    el.textContent=text;el.style.color=color||'white';
-    document.body.appendChild(el);setTimeout(()=>el.remove(),1800);
-}
-
-function toast(msg,type){
-    const ex=document.querySelector('.toast');if(ex)ex.remove();
-    const t=document.createElement('div');t.className='toast '+(type||'');
-    t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3500);
-}
-
-window.addEventListener('beforeunload',()=>{
-    if(S.roomRef&&S.myId&&db){try{S.roomRef.child('players/'+S.myId).remove();}catch(e){}}
-});
+function floatTxt(t,c){const el=document.createElement('div');el.className='float-text';el.textContent=t;el.style.color=c||'white';document.body.appendChild(el);setTimeout(()=>el.remove(),1800);}
+function toast(msg,type){const ex=document.querySelector('.toast');if(ex)ex.remove();const t=document.createElement('div');t.className='toast '+(type||'');t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3500);}
+window.addEventListener('beforeunload',()=>{if(S.roomRef&&S.myId&&db){try{S.roomRef.child('players/'+S.myId).remove();}catch(e){}}});
 </script>
-
 </body>
 </html>
