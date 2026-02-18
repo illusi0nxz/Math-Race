@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏁 Math Race Multiplayer! 🏁</title>
+    <style>
+        :root {
+            --red:#e74c3c;--green:#00b894;--blue:#0984e3;--purple:#6c5ce7;
+            --orange:#f39c12;--pink:#fd79a8;--cyan:#00cec9;--dark:#2d3436;
+            --gray:#636e72;--light:#dfe6e9;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+
+        body{
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            background:linear-gradient(135deg,#0c0c1d 0%,#1a1a3e 50%,#0f2460 100%);
+            min-height:100vh;display:flex;flex-direction:column;align-items:center;
+            padding:8px;overflow-x:hidden;color:var(--dark);
+        }
+
+        @keyframes bounceIn{0%{transform:scale(.3);opacity:0}50%{transform:scale(1.05)}70%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+        @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+        @keyframes slideDown{from{transform:translateY(-20px);opacity:0}to{transform:translateY(0);opacity:1}}
+        @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+        @keyframes confettiFall{0%{transform:translateY(-10px)rotate(0deg);opacity:1}100%{transform:translateY(100vh)rotate(720deg);opacity:0}}
+        @keyframes starFloat{0%{transform:translateY(100vh)rotate(0);opacity:0}10%{opacity:.25}90%{opacity:.25}100%{transform:translateY(-10vh)rotate(360deg);opacity:0}}
+        @keyframes timerPulse{0%,100%{color:var(--red);transform:scale(1)}50%{transform:scale(1.12)}}
+        @keyframes racerBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+        @keyframes popIn{0%{transform:scale(0);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+        @keyframes floatUp{0%{opacity:1;transform:translate(-50%,-50%)}100%{opacity:0;transform:translate(-50%,-150%)}}
+        @keyframes dotPulse{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
+        @keyframes spinLoad{to{transform:rotate(360deg)}}
+
+        .stars-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+        .floating-star{position:absolute;animation:starFloat linear infinite;opacity:.25}
+        .celebration-layer{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:200}
+        .confetti-piece{position:absolute;border-radius:2px;animation:confettiFall linear forwards}
+
+        .container{position:relative;z-index:1;width:100%;max-width:950px}
+
+        .screen{display:none;animation:bounceIn .5s ease}
+        .screen.active{display:block}
+
+        .card{
+            background:white;border-radius:22px;padding:25px;
+            box-shadow:0 12px 45px rgba(0,0,0,.35);text-align:center;margin-bottom:15px;
+        }
+
+        .home-mascot{font-size:65px;animation:bounce 2s infinite;display:block;margin-bottom:8px}
+        .home-title{font-size:2.1em;color:var(--red);text-shadow:2px 2px 0 #ffeaa7;margin-bottom:3px}
+        .home-sub{font-size:1.05em;color:#999;margin-bottom:22px}
+
+        .mode-buttons{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:20px 0}
+        .mode-btn{
+            padding:18px 30px;border:none;border-radius:20px;font-size:1.15em;
+            font-weight:bold;color:white;cursor:pointer;transition:all .3s;
+            min-width:200px;box-shadow:0 6px 20px rgba(0,0,0,.2);
+        }
+        .mode-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+        .mode-solo{background:linear-gradient(135deg,#0984e3,#74b9ff)}
+        .mode-host{background:linear-gradient(135deg,#e74c3c,#fd79a8)}
+        .mode-join{background:linear-gradient(135deg,#00b894,#55efc4)}
+
+        .field-label{display:block;font-size:1.05em;color:#555;margin-bottom:6px;text-align:left;margin-left:8px}
+        .text-input{
+            width:100%;max-width:320px;font-size:1.15em;padding:11px 16px;
+            border:3px solid var(--light);border-radius:14px;text-align:center;
+            outline:none;transition:border-color .3s;
+        }
+        .text-input:focus{border-color:var(--red)}
+
+        .section-title{font-size:1.2em;color:var(--dark);margin:20px 0 10px}
+        .option-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:6px}
+        .option-btn{
+            padding:10px 18px;border:3px solid transparent;border-radius:14px;
+            font-size:.95em;font-weight:bold;cursor:pointer;transition:all .25s;
+            min-width:110px;color:white;
+        }
+        .option-btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,.2)}
+        .option-btn.selected{border-color:var(--dark);transform:scale(1.05)}
+
+        .opt-easy{background:linear-gradient(135deg,#00b894,#00cec9)}
+        .opt-medium{background:linear-gradient(135deg,#fdcb6e,#f39c12)}
+        .opt-hard{background:linear-gradient(135deg,#e74c3c,#fd79a8)}
+        .opt-add{background:linear-gradient(135deg,#0984e3,#74b9ff)}
+        .opt-sub{background:linear-gradient(135deg,#e17055,#fab1a0)}
+        .opt-mul{background:linear-gradient(135deg,#00b894,#55efc4)}
+        .opt-div{background:linear-gradient(135deg,#6c5ce7,#a29bfe)}
+        .opt-all{background:linear-gradient(135deg,#fdcb6e,#f39c12)}
+
+        .desc-text{font-size:.82em;color:#999;min-height:18px;margin-top:4px}
+
+        .racer-picker{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0}
+        .racer-option{
+            font-size:2.2em;padding:8px 12px;border:3px solid var(--light);
+            border-radius:14px;cursor:pointer;transition:all .25s;background:white;
+        }
+        .racer-option:hover{transform:scale(1.12);border-color:var(--red)}
+        .racer-option.selected{border-color:var(--red);background:#fff5f5;transform:scale(1.12)}
+
+        .big-btn{
+            margin-top:20px;padding:15px 45px;font-size:1.3em;font-weight:bold;
+            color:white;border:none;border-radius:22px;cursor:pointer;
+            transition:all .3s;box-shadow:0 8px 25px rgba(0,0,0,.3);
+        }
+        .big-btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 12px 35px rgba(0,0,0,.4)}
+        .big-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+        .btn-red{background:linear-gradient(135deg,#e74c3c,#fd79a8)}
+        .btn-green{background:linear-gradient(135deg,#00b894,#55efc4)}
+        .btn-blue{background:linear-gradient(135deg,#0984e3,#74b9ff)}
+
+        .back-btn{
+            display:inline-block;margin-bottom:15px;padding:8px 18px;font-size:.9em;
+            background:none;border:2px solid #ddd;border-radius:12px;cursor:pointer;
+            color:#888;transition:all .2s;
+        }
+        .back-btn:hover{border-color:#aaa;color:#555}
+
+        .ai-config-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0;text-align:left}
+        .ai-card{background:#f8f9fa;border-radius:14px;padding:12px;border:2px solid var(--light)}
+        .ai-card-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+        .ai-card-emoji{font-size:1.6em}
+        .ai-card-name{font-weight:bold;font-size:.95em}
+        .ai-card label{font-size:.8em;color:#777;display:block;margin-bottom:3px}
+        .ai-slider{width:100%;margin:4px 0;cursor:pointer;accent-color:var(--red)}
+        .ai-speed-label{font-size:.75em;color:var(--orange);font-weight:bold}
+
+        .room-code-display{
+            font-size:2.5em;font-weight:bold;letter-spacing:8px;color:var(--red);
+            background:#fff5f5;border-radius:16px;padding:15px 25px;display:inline-block;
+            margin:10px 0;border:3px dashed var(--red);user-select:all;cursor:pointer;
+        }
+        .room-code-display:hover{animation:pulse .4s}
+        .copy-hint{font-size:.85em;color:#aaa;margin-bottom:15px}
+
+        .players-lobby{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:15px 0}
+        .lobby-player{
+            background:#f0f8ff;border-radius:14px;padding:10px 16px;text-align:center;
+            min-width:90px;border:2px solid #bee3f8;animation:popIn .4s ease;
+        }
+        .lobby-player.is-host{border-color:var(--red);background:#fff5f5}
+        .lobby-player .lp-emoji{font-size:1.8em;display:block}
+        .lobby-player .lp-name{font-size:.85em;font-weight:bold;color:var(--dark)}
+        .lobby-player .lp-tag{font-size:.7em;color:var(--red);font-weight:bold}
+
+        .lobby-ai-list{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0}
+        .lobby-ai{background:#f8f9fa;border-radius:10px;padding:6px 12px;font-size:.85em;color:var(--gray)}
+
+        .lobby-status{font-size:1em;color:#999;margin:10px 0}
+        .join-input{font-size:1.8em;font-weight:bold;letter-spacing:6px;text-transform:uppercase;max-width:250px}
+
+        .game-top-bar{
+            display:flex;justify-content:space-between;align-items:center;
+            background:rgba(255,255,255,.12);backdrop-filter:blur(10px);
+            border-radius:16px;padding:10px 18px;margin-bottom:10px;
+            color:white;flex-wrap:wrap;gap:6px;
+        }
+        .player-info{font-weight:bold;font-size:1em}
+        .timer-display{font-size:1.2em;font-weight:bold;font-variant-numeric:tabular-nums}
+        .timer-display.warning{animation:timerPulse .5s infinite}
+        .stats-bar{display:flex;gap:12px;font-size:.9em}
+        .stat{display:flex;align-items:center;gap:3px}
+
+        .race-track-wrapper{
+            background:linear-gradient(180deg,#e8eaed,#c8ced3);border-radius:18px;
+            padding:12px;margin-bottom:10px;box-shadow:inset 0 3px 12px rgba(0,0,0,.12);overflow:hidden;
+        }
+        .race-track-title{text-align:center;font-size:.9em;color:var(--gray);margin-bottom:8px;font-weight:bold}
+        .race-lane{display:flex;align-items:center;margin-bottom:4px;height:38px;position:relative}
+        .lane-label{
+            width:85px;font-size:.7em;font-weight:bold;color:var(--dark);text-align:right;
+            padding-right:6px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+        }
+        .lane-track{
+            flex:1;height:32px;background:linear-gradient(90deg,#ffeaa7,#fdcb6e);
+            border-radius:16px;position:relative;overflow:visible;border:2px solid var(--orange);
+        }
+        .lane-track.human-lane{
+            background:linear-gradient(90deg,#81ecec,#00cec9);border-color:var(--green);
+            height:36px;border-radius:18px;
+        }
+        .lane-track.ai-lane{background:linear-gradient(90deg,#ffeaa7,#fdcb6e);opacity:.85}
+        .racer-icon{
+            position:absolute;top:50%;transform:translateY(-50%);font-size:1.4em;
+            transition:left .6s cubic-bezier(.25,.46,.45,.94);z-index:2;
+            filter:drop-shadow(1px 1px 2px rgba(0,0,0,.25));left:1%;
+        }
+        .racer-icon.moving{animation:racerBounce .3s ease 2}
+        .human-lane .racer-icon{font-size:1.6em}
+        .finish-flag{position:absolute;right:3px;top:50%;transform:translateY(-50%);font-size:.95em;z-index:1}
+        .checkpoint{position:absolute;top:50%;transform:translateY(-50%);font-size:.6em;opacity:.35}
+
+        .question-card{
+            background:white;border-radius:20px;padding:22px;
+            box-shadow:0 8px 35px rgba(0,0,0,.22);text-align:center;
+        }
+        .q-number{font-size:.82em;color:#b2bec3;margin-bottom:3px}
+        .q-type-badge{
+            display:inline-block;padding:3px 12px;border-radius:18px;
+            font-size:.78em;font-weight:bold;color:white;margin-bottom:12px;
+        }
+        .badge-add{background:var(--blue)}.badge-sub{background:#e17055}
+        .badge-mul{background:var(--green)}.badge-div{background:var(--purple)}
+
+        .question-display{font-size:2.6em;font-weight:bold;color:var(--dark);margin:12px 0;letter-spacing:3px}
+        .question-display .q-op{color:var(--red)}
+
+        .answer-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+        .answer-input{
+            font-size:1.8em;font-weight:bold;padding:10px 18px;border:4px solid var(--light);
+            border-radius:16px;text-align:center;width:150px;outline:none;transition:all .3s;color:var(--dark);
+        }
+        .answer-input:focus{border-color:var(--red);box-shadow:0 0 12px rgba(231,76,60,.15)}
+        .answer-input.correct-flash{border-color:var(--green);background:#f0fff4;animation:pulse .35s}
+        .answer-input.wrong-flash{border-color:var(--red);background:#fff5f5;animation:shake .45s}
+
+        .submit-btn{
+            padding:10px 26px;font-size:1.15em;font-weight:bold;color:white;
+            background:linear-gradient(135deg,var(--red),var(--pink));
+            border:none;border-radius:14px;cursor:pointer;transition:all .3s;
+        }
+        .submit-btn:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(231,76,60,.3)}
+        .submit-btn:disabled{opacity:.4;cursor:not-allowed}
+
+        .feedback-area{min-height:45px;margin:8px 0 4px;font-size:1.05em;font-weight:bold}
+        .fb-emoji{font-size:1.6em;display:block;margin-bottom:3px}
+        .fb-correct{color:var(--green)}.fb-wrong{color:var(--red)}
+
+        .hint-box{
+            background:#fff9e6;border:2px solid #ffd200;border-radius:12px;
+            padding:10px 14px;margin-top:6px;text-align:left;font-size:.9em;
+            color:#555;display:none;animation:slideDown .3s ease;
+        }
+        .hint-box strong{color:var(--orange)}
+
+        .float-text{
+            position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+            font-size:1.8em;font-weight:bold;pointer-events:none;z-index:210;
+            animation:floatUp 1.2s ease forwards;text-shadow:2px 2px 4px rgba(0,0,0,.4);
+        }
+
+        .countdown-overlay{
+            display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(0,0,0,.7);z-index:300;justify-content:center;align-items:center;
+        }
+        .countdown-overlay.active{display:flex}
+        .countdown-number{
+            font-size:7em;font-weight:bold;color:white;
+            text-shadow:0 0 40px rgba(255,255,255,.4);animation:bounceIn .45s ease;
+        }
+
+        .results-trophy{font-size:70px;margin:8px 0}
+        .results-title{font-size:1.9em;color:var(--red);margin-bottom:4px}
+        .results-subtitle{font-size:1em;color:#888;margin-bottom:15px}
+
+        .final-standings{margin:15px 0;text-align:left}
+        .standing-row{
+            display:flex;align-items:center;padding:9px 14px;border-radius:11px;
+            margin-bottom:5px;background:#f8f9fa;gap:8px;
+        }
+        .standing-row.is-you{background:linear-gradient(90deg,#dff9fb,#c7ecee);border:2px solid var(--cyan)}
+        .standing-pos{font-size:1.2em;font-weight:bold;width:32px;text-align:center}
+        .standing-emoji{font-size:1.3em}
+        .standing-name{flex:1;font-weight:bold;font-size:.95em}
+        .standing-pct{font-size:.82em;color:#888}
+
+        .results-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
+        .r-stat{background:#f8f9fa;border-radius:12px;padding:12px 8px}
+        .r-stat-val{font-size:1.6em;font-weight:bold;color:var(--red)}
+        .r-stat-lbl{font-size:.75em;color:#888;margin-top:3px}
+
+        .results-msg{padding:12px;background:#f0fff4;border-radius:12px;font-size:1em;color:#555;margin:12px 0}
+
+        .wrong-review{text-align:left;margin:12px 0}
+        .wrong-review h3{color:var(--red);margin-bottom:8px;text-align:center}
+        .review-item{
+            display:flex;justify-content:space-between;align-items:center;
+            background:#fff5f5;border-radius:9px;padding:7px 12px;
+            margin-bottom:4px;flex-wrap:wrap;gap:4px;font-size:.92em;
+        }
+        .review-q{font-weight:bold}.review-a{color:var(--green);font-weight:bold}
+
+        .btn-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px}
+        .secondary-btn{
+            padding:12px 28px;font-size:1em;font-weight:bold;color:var(--red);
+            background:white;border:3px solid var(--red);border-radius:20px;
+            cursor:pointer;transition:all .3s;
+        }
+        .secondary-btn:hover{background:#fff5f5}
+
+        .waiting-dots::after{content:'';animation:dotPulse 1.5s steps(4,end) infinite}
+
+        .toast{
+            position:fixed;top:20px;left:50%;transform:translateX(-50%);
+            background:var(--dark);color:white;padding:12px 24px;border-radius:12px;
+            font-size:1em;z-index:400;animation:slideDown .3s ease;
+            box-shadow:0 5px 20px rgba(0,0,0,.4);
+        }
+        .toast.success{background:var(--green)}
+        .toast.error{background:var(--red)}
+
+        /* Connection status indicator */
+        .conn-status{
+            position:fixed;bottom:10px;right:10px;padding:6px 14px;border-radius:10px;
+            font-size:.75em;font-weight:bold;z-index:50;display:none;
+        }
+        .conn-status.online{background:#00b894;color:white;display:block}
+        .conn-status.offline{background:#636e72;color:white;display:block}
+
+        /* Loading spinner */
+        .loading-overlay{
+            display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(0,0,0,.5);z-index:350;justify-content:center;align-items:center;
+            flex-direction:column;gap:15px;
+        }
+        .loading-overlay.active{display:flex}
+        .spinner{
+            width:50px;height:50px;border:5px solid rgba(255,255,255,.3);
+            border-top-color:white;border-radius:50%;animation:spinLoad .8s linear infinite;
+        }
+        .loading-text{color:white;font-size:1.1em;font-weight:bold}
+
+        @media(max-width:600px){
+            .home-title{font-size:1.5em}
+            .question-display{font-size:2em}
+            .answer-input{font-size:1.4em;width:120px}
+            .lane-label{width:55px;font-size:.6em}
+            .racer-icon{font-size:1.1em}
+            .human-lane .racer-icon{font-size:1.3em}
+            .results-stats{grid-template-columns:1fr 1fr}
+            .ai-config-grid{grid-template-columns:1fr}
+            .room-code-display{font-size:1.8em;letter-spacing:5px}
+            .mode-btn{min-width:160px;padding:14px 20px;font-size:1em}
+        }
+    </style>
+</head>
+<body>
+
+<div class="stars-bg" id="starsBg"></div>
+<div class="celebration-layer" id="celebrationLayer"></div>
+<div class="countdown-overlay" id="countdownOverlay">
+    <div class="countdown-number" id="countdownNum">3</div>
+</div>
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">Connecting...</div>
+</div>
+<div class="conn-status" id="connStatus"></div>
+
+<div class="container">
+
+    <!-- HOME -->
+    <div class="screen active" id="homeScreen">
+        <div class="card">
+            <span class="home-mascot">🏎️</span>
+            <h1 class="home-title">Math Race Adventure!</h1>
+            <p class="home-sub">Race against AI and friends by solving math questions!</p>
+            <div class="mode-buttons">
+                <button class="mode-btn mode-solo" onclick="goSetup('solo')">🎮 Solo Race<br><small>Play offline vs AI</small></button>
+                <button class="mode-btn mode-host" onclick="goSetup('host')">👑 Host Room<br><small>Create multiplayer room</small></button>
+                <button class="mode-btn mode-join" onclick="showScreen('joinScreen')">🚪 Join Room<br><small>Enter a room code</small></button>
+            </div>
+            <p style="color:#666;font-size:.8em;margin-top:15px;">💡 Solo mode works completely offline — no internet needed!</p>
+        </div>
+    </div>
+
+    <!-- SETUP (Solo & Host) -->
+    <div class="screen" id="setupScreen">
+        <div class="card">
+            <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
+            <h2 class="section-title" id="setupTitle">⚙️ Game Setup</h2>
+
+            <label class="field-label">👋 Your Name</label>
+            <input type="text" id="setupName" class="text-input" placeholder="Type your name..." maxlength="12" autocomplete="off">
+
+            <h3 class="section-title">🎯 Choose Your Racer</h3>
+            <div class="racer-picker" id="setupRacerPicker"></div>
+
+            <h3 class="section-title">📐 Topic</h3>
+            <div class="option-grid" id="setupTopicGrid"></div>
+            <p class="desc-text" id="setupTopicDesc">Pick a topic!</p>
+
+            <h3 class="section-title">⚡ Difficulty</h3>
+            <div class="option-grid" id="setupDiffGrid"></div>
+            <p class="desc-text" id="setupDiffDesc">Pick a level!</p>
+
+            <h3 class="section-title">🏁 Race Length</h3>
+            <div class="option-grid" id="setupLengthGrid"></div>
+
+            <h3 class="section-title">🤖 AI Challengers</h3>
+            <p class="desc-text">Drag sliders to set speed (0 = Off, 100 = Very Fast)</p>
+            <div class="ai-config-grid" id="aiConfigGrid"></div>
+
+            <button class="big-btn btn-red" id="setupGoBtn" onclick="setupGo()" disabled>
+                <span id="setupGoBtnText">Start Solo Race! 🏁</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- JOIN -->
+    <div class="screen" id="joinScreen">
+        <div class="card">
+            <button class="back-btn" onclick="showScreen('homeScreen')">← Back</button>
+            <span style="font-size:50px;display:block;margin-bottom:10px;">🚪</span>
+            <h2 class="section-title">Join a Room</h2>
+
+            <label class="field-label">👋 Your Name</label>
+            <input type="text" id="joinName" class="text-input" placeholder="Your name..." maxlength="12" autocomplete="off">
+
+            <h3 class="section-title" style="margin-top:18px;">🎯 Choose Your Racer</h3>
+            <div class="racer-picker" id="joinRacerPicker"></div>
+
+            <h3 class="section-title" style="margin-top:18px;">🔑 Room Code</h3>
+            <input type="text" id="joinCode" class="text-input join-input" placeholder="ABCD" maxlength="4" autocomplete="off">
+
+            <br>
+            <button class="big-btn btn-green" id="joinGoBtn" onclick="joinRoom()" disabled>Join Room! 🚀</button>
+        </div>
+    </div>
+
+    <!-- LOBBY -->
+    <div class="screen" id="lobbyScreen">
+        <div class="card">
+            <span style="font-size:50px;display:block;margin-bottom:8px;">🏟️</span>
+            <h2 class="section-title">Race Lobby</h2>
+            <div>
+                <p style="color:#888;font-size:.9em;">Share this code with friends:</p>
+                <div class="room-code-display" id="lobbyRoomCode" onclick="copyRoomCode()" title="Click to copy">----</div>
+                <p class="copy-hint">Click the code to copy!</p>
+            </div>
+            <div>
+                <h3 class="section-title">👥 Players</h3>
+                <div class="players-lobby" id="lobbyPlayers"></div>
+            </div>
+            <div>
+                <h3 class="section-title">🤖 AI Racers</h3>
+                <div class="lobby-ai-list" id="lobbyAIList"></div>
+            </div>
+            <div>
+                <p style="color:#999;font-size:.85em;margin-top:8px;">
+                    Topic: <strong id="lobbyTopic">-</strong> |
+                    Difficulty: <strong id="lobbyDiff">-</strong> |
+                    Questions: <strong id="lobbyQs">-</strong>
+                </p>
+            </div>
+            <p class="lobby-status" id="lobbyStatus">Waiting for host to start<span class="waiting-dots"></span></p>
+            <button class="big-btn btn-red" id="lobbyStartBtn" onclick="hostStartGame()" style="display:none;">Start Race! 🏁</button>
+            <button class="back-btn" onclick="leaveLobby()" style="margin-top:15px;">Leave Room</button>
+        </div>
+    </div>
+
+    <!-- GAME -->
+    <div class="screen" id="gameScreen">
+        <div class="game-top-bar">
+            <div class="player-info" id="gamePlayerName">⭐ Player</div>
+            <div class="timer-display" id="timerDisplay">⏱️ 0:00</div>
+            <div class="stats-bar">
+                <div class="stat">✅ <span id="correctStat">0</span></div>
+                <div class="stat">❌ <span id="wrongStat">0</span></div>
+                <div class="stat">🔥 <span id="streakStat">0</span></div>
+            </div>
+        </div>
+        <div class="race-track-wrapper">
+            <div class="race-track-title">🏁 RACE TRACK 🏁</div>
+            <div id="raceTrack"></div>
+        </div>
+        <div class="question-card" id="questionCard">
+            <div class="q-number" id="qNumber">Question 1</div>
+            <span class="q-type-badge" id="qTypeBadge">Addition</span>
+            <div class="question-display" id="questionDisplay">
+                <span id="qN1">3</span> <span class="q-op" id="qOp">+</span>
+                <span id="qN2">4</span> <span class="q-op">=</span> <span class="q-op">?</span>
+            </div>
+            <div class="answer-row">
+                <input type="number" id="answerInput" class="answer-input" placeholder="?" autocomplete="off">
+                <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Go! ✔️</button>
+            </div>
+            <div class="feedback-area" id="feedbackArea"></div>
+            <div class="hint-box" id="hintBox"></div>
+        </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="screen" id="resultsScreen">
+        <div class="card">
+            <div class="results-trophy" id="resultsTrophy">🏆</div>
+            <h1 class="results-title" id="resultsTitle">Race Complete!</h1>
+            <p class="results-subtitle" id="resultsSub"></p>
+            <h3 style="color:var(--gray);margin:12px 0 8px;">🏁 Final Standings</h3>
+            <div class="final-standings" id="finalStandings"></div>
+            <div class="results-stats" id="resultsStatsGrid"></div>
+            <div class="results-msg" id="resultsMsg"></div>
+            <div class="wrong-review" id="wrongReview" style="display:none;">
+                <h3>📝 Let's review these:</h3>
+                <div id="wrongList"></div>
+            </div>
+            <div class="btn-row">
+                <button class="big-btn btn-red" onclick="playAgain()">Play Again! 🏎️</button>
+                <button class="secondary-btn" onclick="goHome()">Home 🏠</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// ================================================================
+//  FIREBASE CONFIG — REPLACE WITH YOUR VALUES
+// ================================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyAxcCeFU2XOIV0H2DjLFZXOrgtbCTbmg9c",
+  authDomain: "math-race-6c1bd.firebaseapp.com",
+  databaseURL: "https://math-race-6c1bd-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "math-race-6c1bd",
+  storageBucket: "math-race-6c1bd.firebasestorage.app",
+  messagingSenderId: "775711322840",
+  appId: "1:775711322840:web:90c786ece15f01e19f5dad"
+};
+
+// ================================================================
+//  LAZY FIREBASE CONNECTION
+// ================================================================
+let firebaseReady = false;
+let db = null;
+let firebaseSDKLoaded = false;
+let sdkLoadPromise = null;
+
+function loadFirebaseSDK() {
+    if (sdkLoadPromise) return sdkLoadPromise;
+
+    sdkLoadPromise = new Promise((resolve, reject) => {
+        // Check if already loaded (script tags in HTML as fallback)
+        if (typeof firebase !== 'undefined' && firebase.app) {
+            firebaseSDKLoaded = true;
+            resolve();
+            return;
+        }
+
+        // Dynamically load firebase-app
+        const script1 = document.createElement('script');
+        script1.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js';
+        script1.onload = () => {
+            // Then load firebase-database
+            const script2 = document.createElement('script');
+            script2.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js';
+            script2.onload = () => {
+                firebaseSDKLoaded = true;
+                resolve();
+            };
+            script2.onerror = () => reject(new Error('Failed to load Firebase Database SDK'));
+            document.head.appendChild(script2);
+        };
+        script1.onerror = () => reject(new Error('Failed to load Firebase App SDK. Check your internet connection.'));
+        document.head.appendChild(script1);
+    });
+
+    return sdkLoadPromise;
+}
+
+async function initFirebase() {
+    if (firebaseReady && db) return true;
+
+    showLoading('Connecting to server...');
+
+    try {
+        await loadFirebaseSDK();
+
+        if (!firebaseReady) {
+            firebase.initializeApp(FIREBASE_CONFIG);
+            db = firebase.database();
+            firebaseReady = true;
+
+            // Monitor connection state
+            db.ref('.info/connected').on('value', snap => {
+                const el = document.getElementById('connStatus');
+                if (snap.val() === true) {
+                    el.className = 'conn-status online';
+                    el.textContent = '🟢 Online';
+                } else {
+                    el.className = 'conn-status offline';
+                    el.textContent = '⚫ Offline';
+                }
+            });
+        }
+
+        hideLoading();
+        return true;
+
+    } catch (e) {
+        hideLoading();
+        toast('❌ ' + e.message, 'error');
+        console.error('Firebase init error:', e);
+        return false;
+    }
+}
+
+function disconnectFirebase() {
+    if (db && S.roomRef && S.myId) {
+        S.roomRef.child('players/' + S.myId).remove();
+    }
+    S.unsubscribers.forEach(fn => fn());
+    S.unsubscribers = [];
+    S.roomRef = null;
+
+    const el = document.getElementById('connStatus');
+    el.style.display = 'none';
+}
+
+function showLoading(text) {
+    document.getElementById('loadingText').textContent = text || 'Loading...';
+    document.getElementById('loadingOverlay').classList.add('active');
+}
+
+function hideLoading() {
+    document.getElementById('loadingOverlay').classList.remove('active');
+}
+
+// ================================================================
+//  CONSTANTS
+// ================================================================
+const RACERS = ['🏎️','🚗','🚕','🏍️','🚀','🛸','🐎','🐢','🐇','🦊','🐱','🐶','🦄','🐲'];
+
+const DEFAULT_AI = [
+    { name:'Turbo Tina',   emoji:'🦊', speed:95 },
+    { name:'Speedy Sam',   emoji:'🐇', speed:75 },
+    { name:'Steady Eddie', emoji:'🐶', speed:55 },
+    { name:'Slowpoke Sue', emoji:'🐢', speed:40 },
+];
+
+const TOPICS = [
+    {id:'add',label:'➕ Add',cls:'opt-add'},
+    {id:'sub',label:'➖ Sub',cls:'opt-sub'},
+    {id:'mul',label:'✖️ Mul',cls:'opt-mul'},
+    {id:'div',label:'➗ Div',cls:'opt-div'},
+    {id:'all',label:'🎲 All',cls:'opt-all'},
+];
+const TOPIC_DESC = {add:'Addition — adding numbers',sub:'Subtraction — taking away',mul:'Multiplication — times tables',div:'Division — sharing equally',all:'Everything mixed!'};
+const TOPIC_NAMES = {add:'Addition',sub:'Subtraction',mul:'Multiplication',div:'Division',all:'Mixed'};
+const DIFFS = [{id:'easy',label:'🌱 Easy',cls:'opt-easy'},{id:'medium',label:'🌟 Medium',cls:'opt-medium'},{id:'hard',label:'🔥 Hard',cls:'opt-hard'}];
+const DIFF_DESC = {easy:'Small numbers — beginners!',medium:'Bigger numbers — nice challenge!',hard:'Large numbers — champions!'};
+const DIFF_NAMES = {easy:'Easy',medium:'Medium',hard:'Hard'};
+const LENGTHS = [{id:10,label:'10 Qs'},{id:15,label:'15 Qs'},{id:20,label:'20 Qs'}];
+const CHEERS = ["Amazing! 🌟","Super! ⭐","Brilliant! 💎","On fire! 🔥","Wow! 🚀","Fantastic! 🎉","Way to go! 💪","Math star! ✨"];
+
+const AUTO_NEXT_CORRECT = 1000;
+const AUTO_NEXT_WRONG = 2800;
+
+// ================================================================
+//  STATE
+// ================================================================
+let S = resetState();
+
+function resetState() {
+    return {
+        mode:'solo', myId:generateId(), name:'', racerEmoji:'🏎️',
+        topic:'', diff:'', totalQs:15,
+        aiConfig: DEFAULT_AI.map(a=>({...a})),
+        roomCode:'', roomRef:null, isHost:false,
+        qIndex:0, correct:0, wrong:0, streak:0, bestStreak:0,
+        progress:0, timerSec:0, timerIntv:null,
+        aiProgress:[], aiIntv:null,
+        currentQ:null, answered:false, raceFinished:false,
+        finishOrder:[], wrongList:[], autoNextTimer:null,
+        sharedQuestions:null, roomData:null, unsubscribers:[],
+    };
+}
+
+function generateId(){ return 'p_'+Math.random().toString(36).substr(2,9); }
+function generateRoomCode(){
+    const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let r=''; for(let i=0;i<4;i++) r+=c[Math.floor(Math.random()*c.length)]; return r;
+}
+
+// ================================================================
+//  UI INIT
+// ================================================================
+(function init(){
+    createStars();
+    buildRacerPicker('setupRacerPicker','setup');
+    buildRacerPicker('joinRacerPicker','join');
+    buildOptionGrid('setupTopicGrid',TOPICS,'topic','setup');
+    buildOptionGrid('setupDiffGrid',DIFFS,'diff','setup');
+    buildLengthGrid();
+    buildAIConfig();
+
+    document.getElementById('setupName').addEventListener('input',checkSetupReady);
+    document.getElementById('joinName').addEventListener('input',checkJoinReady);
+    document.getElementById('joinCode').addEventListener('input',function(){
+        this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+        checkJoinReady();
+    });
+    document.getElementById('joinCode').addEventListener('keydown',e=>{
+        if(e.key==='Enter') joinRoom();
+    });
+    document.getElementById('answerInput').addEventListener('keydown',e=>{
+        if(e.key==='Enter'&&!S.answered) checkAnswer();
+    });
+    document.getElementById('answerInput').addEventListener('input',function(){
+        this.value=this.value.replace(/[^0-9\-]/g,'');
+    });
+})();
+
+function createStars(){
+    const bg=document.getElementById('starsBg');
+    const syms=['⭐','✨','🌟','💫'];
+    for(let i=0;i<15;i++){
+        const s=document.createElement('span');s.className='floating-star';
+        s.textContent=syms[i%syms.length];s.style.left=Math.random()*100+'%';
+        s.style.fontSize=(10+Math.random()*14)+'px';
+        s.style.animationDuration=(10+Math.random()*15)+'s';
+        s.style.animationDelay=Math.random()*12+'s';
+        bg.appendChild(s);
+    }
+}
+
+function buildRacerPicker(cid,prefix){
+    const c=document.getElementById(cid);c.innerHTML='';
+    RACERS.forEach((em,i)=>{
+        const d=document.createElement('div');
+        d.className='racer-option'+(i===0?' selected':'');
+        d.textContent=em;
+        d.onclick=()=>{
+            c.querySelectorAll('.racer-option').forEach(x=>x.classList.remove('selected'));
+            d.classList.add('selected');S.racerEmoji=em;
+            if(prefix==='setup')checkSetupReady();if(prefix==='join')checkJoinReady();
+        };
+        c.appendChild(d);
+    });
+}
+
+function buildOptionGrid(cid,opts,field,prefix){
+    const c=document.getElementById(cid);c.innerHTML='';
+    opts.forEach(o=>{
+        const b=document.createElement('button');b.className='option-btn '+o.cls;b.textContent=o.label;
+        b.onclick=()=>{
+            c.querySelectorAll('.option-btn').forEach(x=>x.classList.remove('selected'));
+            b.classList.add('selected');S[field]=o.id;
+            const dm=field==='topic'?TOPIC_DESC:DIFF_DESC;
+            const de=document.getElementById(prefix+(field==='topic'?'TopicDesc':'DiffDesc'));
+            if(de)de.textContent=dm[o.id];checkSetupReady();
+        };
+        c.appendChild(b);
+    });
+}
+
+function buildLengthGrid(){
+    const c=document.getElementById('setupLengthGrid');c.innerHTML='';
+    LENGTHS.forEach((l,i)=>{
+        const b=document.createElement('button');
+        b.className='option-btn opt-medium'+(i===1?' selected':'');
+        b.textContent=l.label;if(i===1)S.totalQs=l.id;
+        b.onclick=()=>{
+            c.querySelectorAll('.option-btn').forEach(x=>x.classList.remove('selected'));
+            b.classList.add('selected');S.totalQs=l.id;
+        };
+        c.appendChild(b);
+    });
+}
+
+function buildAIConfig(){
+    const c=document.getElementById('aiConfigGrid');c.innerHTML='';
+    S.aiConfig=DEFAULT_AI.map(a=>({...a}));
+    S.aiConfig.forEach((ai,i)=>{
+        const card=document.createElement('div');card.className='ai-card';
+        card.innerHTML=`
+            <div class="ai-card-header">
+                <span class="ai-card-emoji">${ai.emoji}</span>
+                <span class="ai-card-name">${ai.name}</span>
+            </div>
+            <label>Speed: <span class="ai-speed-label" id="aiSpeedLabel${i}">${ai.speed}%</span></label>
+            <input type="range" class="ai-slider" min="0" max="100" value="${ai.speed}"
+                id="aiSlider${i}" oninput="updateAISpeed(${i},this.value)">
+            <small style="color:#aaa;">0=Off, 100=Very Fast</small>`;
+        c.appendChild(card);
+    });
+}
+
+function updateAISpeed(i,v){
+    v=parseInt(v);S.aiConfig[i].speed=v;
+    document.getElementById('aiSpeedLabel'+i).textContent=v===0?'OFF':v+'%';
+}
+
+function checkSetupReady(){
+    const ok=document.getElementById('setupName').value.trim().length>0&&S.topic&&S.diff;
+    document.getElementById('setupGoBtn').disabled=!ok;
+}
+
+function checkJoinReady(){
+    const n=document.getElementById('joinName').value.trim().length>0;
+    const c=document.getElementById('joinCode').value.trim().length===4;
+    document.getElementById('joinGoBtn').disabled=!(n&&c);
+}
+
+// ================================================================
+//  SCREEN NAV
+// ================================================================
+function showScreen(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    const el=document.getElementById(id);el.classList.remove('active');
+    void el.offsetWidth;el.classList.add('active');
+}
+
+function goHome(){
+    cleanup();S=resetState();buildAIConfig();showScreen('homeScreen');
+}
+
+function goSetup(mode){
+    S.mode=mode;S.isHost=(mode==='host');
+    document.getElementById('setupTitle').textContent=mode==='host'?'👑 Host Game Setup':'🎮 Solo Race Setup';
+    document.getElementById('setupGoBtnText').textContent=mode==='host'?'Create Room! 🏟️':'Start Solo Race! 🏁';
+    showScreen('setupScreen');
+}
+
+// ================================================================
+//  SETUP GO
+// ================================================================
+async function setupGo(){
+    S.name=document.getElementById('setupName').value.trim();
+    if(!S.name||!S.topic||!S.diff) return;
+
+    if(S.mode==='solo'){
+        startSoloGame();
+    } else if(S.mode==='host'){
+        await createRoom();
+    }
+}
+
+function startSoloGame(){
+    S.sharedQuestions=generateAllQuestions();
+    initGameState();showScreen('gameScreen');
+    runCountdown(()=>{buildRaceTrack();beginRace();});
+}
+
+// ================================================================
+//  HOST — CREATE ROOM (lazy connect)
+// ================================================================
+async function createRoom(){
+    const ok = await initFirebase();
+    if(!ok){
+        toast('Cannot connect. Check internet!','error');
+        return;
+    }
+
+    S.roomCode=generateRoomCode();
+
+    const roomData={
+        code:S.roomCode, hostId:S.myId,
+        settings:{
+            topic:S.topic,diff:S.diff,totalQs:S.totalQs,
+            aiConfig:S.aiConfig.map(a=>({name:a.name,emoji:a.emoji,speed:a.speed})),
+        },
+        state:'lobby',
+        players:{},
+        questions:generateAllQuestions(),
+        startTime:null,
+    };
+    roomData.players[S.myId]={
+        name:S.name,emoji:S.racerEmoji,isHost:true,
+        progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0,
+    };
+
+    S.roomRef=db.ref('rooms/'+S.roomCode);
+
+    try{
+        await S.roomRef.set(roomData);
+        // Auto-remove player on disconnect
+        S.roomRef.child('players/'+S.myId).onDisconnect().remove();
+        listenToRoom();
+        showScreen('lobbyScreen');
+        document.getElementById('lobbyRoomCode').textContent=S.roomCode;
+        document.getElementById('lobbyStartBtn').style.display='inline-block';
+        toast('Room created! Share the code.','success');
+    }catch(e){
+        toast('Error: '+e.message,'error');
+    }
+}
+
+// ================================================================
+//  JOIN ROOM (lazy connect)
+// ================================================================
+async function joinRoom(){
+    S.name=document.getElementById('joinName').value.trim();
+    S.roomCode=document.getElementById('joinCode').value.trim().toUpperCase();
+    if(!S.name||S.roomCode.length!==4) return;
+
+    const ok = await initFirebase();
+    if(!ok){
+        toast('Cannot connect. Check internet!','error');
+        return;
+    }
+
+    S.roomRef=db.ref('rooms/'+S.roomCode);
+    S.mode='join';S.isHost=false;
+
+    try{
+        showLoading('Joining room...');
+        const snap=await S.roomRef.once('value');
+        const data=snap.val();
+        hideLoading();
+
+        if(!data){toast('Room not found! Check the code.','error');return;}
+        if(data.state!=='lobby'){toast('Race already started!','error');return;}
+
+        const names=Object.values(data.players||{}).map(p=>p.name.toLowerCase());
+        if(names.includes(S.name.toLowerCase())){
+            toast('Name taken! Choose another.','error');return;
+        }
+
+        S.topic=data.settings.topic;S.diff=data.settings.diff;
+        S.totalQs=data.settings.totalQs;
+        S.aiConfig=(data.settings.aiConfig||[]).map(a=>({...a}));
+
+        await S.roomRef.child('players/'+S.myId).set({
+            name:S.name,emoji:S.racerEmoji,isHost:false,
+            progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0,
+        });
+
+        S.roomRef.child('players/'+S.myId).onDisconnect().remove();
+        listenToRoom();
+        showScreen('lobbyScreen');
+        document.getElementById('lobbyRoomCode').textContent=S.roomCode;
+        document.getElementById('lobbyStartBtn').style.display='none';
+        toast('Joined room '+S.roomCode+'!','success');
+    }catch(e){
+        hideLoading();
+        toast('Error: '+e.message,'error');
+    }
+}
+
+// ================================================================
+//  ROOM LISTENER
+// ================================================================
+function listenToRoom(){
+    const handler = S.roomRef.on('value',snap=>{
+        const data=snap.val();
+        if(!data){toast('Room was closed.','error');goHome();return;}
+        S.roomData=data;
+        updateLobbyUI(data);
+
+        if(data.state==='countdown'&&document.getElementById('lobbyScreen').classList.contains('active')){
+            startMultiplayerCountdown(data);
+        }
+        if(data.state==='racing'&&document.getElementById('gameScreen').classList.contains('active')){
+            updateMultiplayerTrack(data);
+        }
+        if(data.state==='finished'&&!S.raceFinished){
+            S.raceFinished=true;
+            clearInterval(S.timerIntv);clearInterval(S.aiIntv);clearTimeout(S.autoNextTimer);
+            setTimeout(()=>showMultiplayerResults(data),800);
+        }
+    });
+    S.unsubscribers.push(()=>S.roomRef.off('value',handler));
+}
+
+function updateLobbyUI(data){
+    const pe=document.getElementById('lobbyPlayers');pe.innerHTML='';
+    const players=data.players||{};
+    Object.entries(players).forEach(([id,p])=>{
+        const d=document.createElement('div');
+        d.className='lobby-player'+(p.isHost?' is-host':'');
+        d.innerHTML=`<span class="lp-emoji">${p.emoji}</span>
+            <span class="lp-name">${p.name}</span>
+            ${p.isHost?'<span class="lp-tag">HOST</span>':''}`;
+        pe.appendChild(d);
+    });
+
+    const ae=document.getElementById('lobbyAIList');ae.innerHTML='';
+    (data.settings.aiConfig||[]).forEach(ai=>{
+        if(ai.speed>0){
+            const d=document.createElement('div');d.className='lobby-ai';
+            d.textContent=`${ai.emoji} ${ai.name} (${ai.speed}%)`;ae.appendChild(d);
+        }
+    });
+
+    document.getElementById('lobbyTopic').textContent=TOPIC_NAMES[data.settings.topic]||data.settings.topic;
+    document.getElementById('lobbyDiff').textContent=DIFF_NAMES[data.settings.diff]||data.settings.diff;
+    document.getElementById('lobbyQs').textContent=data.settings.totalQs;
+
+    if(S.isHost){
+        document.getElementById('lobbyStartBtn').style.display='inline-block';
+        const cnt=Object.keys(players).length;
+        document.getElementById('lobbyStatus').innerHTML=`${cnt} player${cnt>1?'s':''} ready. Press Start!`;
+    }else{
+        document.getElementById('lobbyStartBtn').style.display='none';
+        document.getElementById('lobbyStatus').innerHTML='Waiting for host to start<span class="waiting-dots"></span>';
+    }
+}
+
+// ================================================================
+//  HOST START
+// ================================================================
+async function hostStartGame(){
+    if(!S.isHost||!S.roomRef) return;
+    try{
+        await S.roomRef.update({state:'countdown',startTime:firebase.database.ServerValue.TIMESTAMP});
+    }catch(e){toast('Error: '+e.message,'error');}
+}
+
+function startMultiplayerCountdown(data){
+    S.topic=data.settings.topic;S.diff=data.settings.diff;
+    S.totalQs=data.settings.totalQs;
+    S.aiConfig=(data.settings.aiConfig||[]).map(a=>({...a}));
+    S.sharedQuestions=data.questions||[];
+
+    initGameState();showScreen('gameScreen');
+    runCountdown(async()=>{
+        buildRaceTrack();
+        if(S.isHost){try{await S.roomRef.update({state:'racing'});}catch(e){}}
+        beginRace();
+    });
+}
+
+// ================================================================
+//  GAME STATE INIT
+// ================================================================
+function initGameState(){
+    S.qIndex=0;S.correct=0;S.wrong=0;S.streak=0;S.bestStreak=0;
+    S.progress=0;S.timerSec=0;S.raceFinished=false;
+    S.finishOrder=[];S.wrongList=[];S.answered=false;
+    S.aiProgress=S.aiConfig.map(()=>0);
+
+    document.getElementById('gamePlayerName').textContent='⭐ '+S.name;
+    document.getElementById('correctStat').textContent='0';
+    document.getElementById('wrongStat').textContent='0';
+    document.getElementById('streakStat').textContent='0';
+    document.getElementById('timerDisplay').textContent='⏱️ 0:00';
+    document.getElementById('timerDisplay').classList.remove('warning');
+}
+
+// ================================================================
+//  COUNTDOWN
+// ================================================================
+function runCountdown(cb){
+    const ov=document.getElementById('countdownOverlay');
+    const ne=document.getElementById('countdownNum');
+    ov.classList.add('active');let c=3;
+    ne.textContent=c;ne.style.color='white';
+    ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';
+    const intv=setInterval(()=>{
+        c--;
+        if(c>0){ne.textContent=c;ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';}
+        else if(c===0){ne.textContent='GO!';ne.style.color='#00b894';ne.style.animation='none';ne.offsetWidth;ne.style.animation='bounceIn .45s ease';}
+        else{clearInterval(intv);ov.classList.remove('active');cb();}
+    },800);
+}
+
+// ================================================================
+//  RACE TRACK BUILD
+// ================================================================
+function buildRaceTrack(){
+    const t=document.getElementById('raceTrack');t.innerHTML='';
+    t.appendChild(createLane(S.name,S.racerEmoji,'human-lane','myRacer'));
+
+    if(S.mode!=='solo'&&S.roomData){
+        Object.entries(S.roomData.players||{}).forEach(([id,p])=>{
+            if(id!==S.myId) t.appendChild(createLane(p.name,p.emoji,'human-lane','racer_'+id));
+        });
+    }
+
+    S.aiConfig.forEach((ai,i)=>{
+        if(ai.speed>0) t.appendChild(createLane(ai.name,ai.emoji,'ai-lane','aiRacer'+i));
+    });
+}
+
+function createLane(name,emoji,cls,rid){
+    const lane=document.createElement('div');lane.className='race-lane';
+    const label=document.createElement('div');label.className='lane-label';label.textContent=name;
+    const track=document.createElement('div');track.className='lane-track '+cls;
+
+    [25,50,75].forEach(p=>{
+        const cp=document.createElement('span');cp.className='checkpoint';
+        cp.style.left=p+'%';cp.textContent='🏳️';track.appendChild(cp);
+    });
+
+    const racer=document.createElement('span');racer.className='racer-icon';
+    racer.id=rid;racer.textContent=emoji;racer.style.left='1%';track.appendChild(racer);
+
+    const flag=document.createElement('span');flag.className='finish-flag';
+    flag.textContent='🏁';track.appendChild(flag);
+
+    lane.appendChild(label);lane.appendChild(track);return lane;
+}
+
+function moveRacer(id,progress){
+    const el=document.getElementById(id);if(!el)return;
+    const pct=1+(Math.min(100,progress)/100)*87;
+    el.style.left=pct+'%';
+    el.classList.remove('moving');void el.offsetWidth;el.classList.add('moving');
+    setTimeout(()=>el.classList.remove('moving'),800);
+}
+
+// ================================================================
+//  RACE BEGIN
+// ================================================================
+function beginRace(){startTimer();startAI();generateQuestion();}
+
+function startTimer(){
+    S.timerIntv=setInterval(()=>{
+        if(S.raceFinished)return;S.timerSec++;
+        const m=Math.floor(S.timerSec/60),s=S.timerSec%60;
+        const d=document.getElementById('timerDisplay');
+        d.textContent='⏱️ '+m+':'+(s<10?'0':'')+s;
+        if(S.timerSec>120)d.classList.add('warning');
+    },1000);
+}
+
+function startAI(){
+    S.aiIntv=setInterval(()=>{
+        if(S.raceFinished)return;
+        S.aiConfig.forEach((ai,i)=>{
+            if(ai.speed<=0||S.aiProgress[i]>=100)return;
+            const baseTicks=S.totalQs*6;
+            const baseInc=100/baseTicks;
+            const speedMult=ai.speed/100;
+            const jitter=0.6+Math.random()*0.8;
+            const inc=baseInc*speedMult*jitter;
+            S.aiProgress[i]=Math.min(100,S.aiProgress[i]+inc);
+            moveRacer('aiRacer'+i,S.aiProgress[i]);
+            if(S.aiProgress[i]>=100&&!S.finishOrder.includes('ai_'+i)){
+                S.finishOrder.push('ai_'+i);checkRaceEnd();
+            }
+        });
+    },500);
+}
+
+// ================================================================
+//  QUESTIONS
+// ================================================================
+function generateAllQuestions(){
+    const qs=[];for(let i=0;i<30;i++)qs.push(createQ(S.topic,S.diff));return qs;
+}
+
+function generateQuestion(){
+    if(S.raceFinished)return;
+    if(S.qIndex>=S.totalQs){finishPlayer();return;}
+
+    clearTimeout(S.autoNextTimer);S.qIndex++;S.answered=false;
+
+    let q;
+    if(S.sharedQuestions&&S.sharedQuestions.length>=S.qIndex) q=S.sharedQuestions[S.qIndex-1];
+    else q=createQ(S.topic,S.diff);
+    S.currentQ=q;
+
+    document.getElementById('qNumber').textContent=`Question ${S.qIndex} of ${S.totalQs}`;
+    const badge=document.getElementById('qTypeBadge');
+    const tN={add:'Addition',sub:'Subtraction',mul:'Multiplication',div:'Division'};
+    const tC={add:'badge-add',sub:'badge-sub',mul:'badge-mul',div:'badge-div'};
+    badge.textContent=tN[q.type];badge.className='q-type-badge '+tC[q.type];
+    document.getElementById('qN1').textContent=q.num1;
+    document.getElementById('qOp').textContent=q.opSymbol;
+    document.getElementById('qN2').textContent=q.num2;
+
+    const inp=document.getElementById('answerInput');
+    inp.value='';inp.className='answer-input';inp.disabled=false;inp.focus();
+    document.getElementById('submitBtn').disabled=false;
+    document.getElementById('feedbackArea').innerHTML='';
+    document.getElementById('hintBox').style.display='none';
+
+    const card=document.getElementById('questionCard');
+    card.style.animation='none';card.offsetWidth;card.style.animation='slideDown .35s ease';
+}
+
+function createQ(topic,diff){
+    let type=topic;
+    if(type==='all'){const ts=['add','sub','mul','div'];type=ts[Math.floor(Math.random()*ts.length)];}
+    let n1,n2,answer,opSymbol;
+    switch(type){
+        case 'add':opSymbol='+';
+            if(diff==='easy'){n1=rand(1,10);n2=rand(1,10);}
+            else if(diff==='medium'){n1=rand(5,50);n2=rand(5,50);}
+            else{n1=rand(20,100);n2=rand(20,100);}
+            answer=n1+n2;break;
+        case 'sub':opSymbol='−';
+            if(diff==='easy'){n1=rand(3,15);n2=rand(1,n1-1);}
+            else if(diff==='medium'){n1=rand(20,60);n2=rand(5,n1-1);}
+            else{n1=rand(50,150);n2=rand(10,n1-1);}
+            answer=n1-n2;break;
+        case 'mul':opSymbol='×';
+            if(diff==='easy'){n1=rand(1,5);n2=rand(1,5);}
+            else if(diff==='medium'){n1=rand(2,9);n2=rand(2,9);}
+            else{n1=rand(3,12);n2=rand(3,12);}
+            answer=n1*n2;break;
+        case 'div':opSymbol='÷';
+            if(diff==='easy'){n2=rand(1,5);answer=rand(1,5);n1=n2*answer;}
+            else if(diff==='medium'){n2=rand(2,9);answer=rand(2,9);n1=n2*answer;}
+            else{n2=rand(3,12);answer=rand(3,12);n1=n2*answer;}
+            break;
+    }
+    return{num1:n1,num2:n2,answer,opSymbol,type};
+}
+
+function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+
+// ================================================================
+//  CHECK ANSWER
+// ================================================================
+function checkAnswer(){
+    if(S.answered||S.raceFinished)return;
+    const inp=document.getElementById('answerInput');
+    const val=inp.value.trim();
+    if(val===''){inp.className='answer-input wrong-flash';setTimeout(()=>inp.className='answer-input',500);return;}
+
+    const userAns=parseInt(val);const q=S.currentQ;
+    S.answered=true;inp.disabled=true;
+    document.getElementById('submitBtn').disabled=true;
+
+    if(userAns===q.answer){
+        S.correct++;S.streak++;if(S.streak>S.bestStreak)S.bestStreak=S.streak;
+        inp.className='answer-input correct-flash';
+        const ch=CHEERS[Math.floor(Math.random()*CHEERS.length)];
+        document.getElementById('feedbackArea').innerHTML=`<span class="fb-emoji">🎉</span><span class="fb-correct">${ch}</span>`;
+        document.getElementById('correctStat').textContent=S.correct;
+        document.getElementById('streakStat').textContent=S.streak;
+
+        const inc=100/S.totalQs;
+        S.progress=Math.min(100,S.progress+inc);
+        moveRacer('myRacer',S.progress);
+        syncProgress();launchConfetti(5);floatText('+1 ⭐','#fdcb6e');
+
+        if(S.progress>=100){finishPlayer();return;}
+
+        S.autoNextTimer=setTimeout(()=>{
+            if(S.qIndex<S.totalQs&&!S.raceFinished)generateQuestion();
+            else if(!S.raceFinished)finishPlayer();
+        },AUTO_NEXT_CORRECT);
+
+    } else {
+        S.wrong++;S.streak=0;
+        inp.className='answer-input wrong-flash';
+        S.wrongList.push({q:`${q.num1} ${q.opSymbol} ${q.num2}`,correct:q.answer,given:userAns});
+
+        let dir=userAns<q.answer?'bigger':'smaller';
+        document.getElementById('feedbackArea').innerHTML=
+            `<span class="fb-emoji">😊</span><span class="fb-wrong">Not quite! Answer: <strong>${q.answer}</strong> (yours was too ${dir})</span>`;
+        showHint(q);
+        document.getElementById('wrongStat').textContent=S.wrong;
+        document.getElementById('streakStat').textContent=S.streak;
+        syncProgress();
+
+        S.autoNextTimer=setTimeout(()=>{
+            if(S.qIndex<S.totalQs&&!S.raceFinished)generateQuestion();
+            else if(!S.raceFinished)finishPlayer();
+        },AUTO_NEXT_WRONG);
+    }
+}
+
+function showHint(q){
+    const box=document.getElementById('hintBox');box.style.display='block';
+    let h='<strong>💡 How to solve it:</strong><br>';
+    switch(q.type){
+        case 'add':
+            if(q.num2<=10)h+=`Start at ${q.num1}, count up ${q.num2} → <strong>${q.answer}</strong>`;
+            else{const t=Math.floor(q.num2/10)*10,o=q.num2%10;h+=`${q.num1}+${t}=${q.num1+t}, then +${o}=<strong>${q.answer}</strong>`;}
+            break;
+        case 'sub':
+            if(q.num2<=10)h+=`Start at ${q.num1}, count back ${q.num2} → <strong>${q.answer}</strong>`;
+            else h+=`Think: ${q.num2}+?=${q.num1} → ${q.num2}+<strong>${q.answer}</strong>=${q.num1}`;
+            break;
+        case 'mul':
+            let parts=[];for(let i=1;i<=q.num1;i++)parts.push(q.num2*i);
+            h+=`Skip count by ${q.num2}: `+parts.slice(0,Math.min(q.num1,10)).join(', ');
+            if(q.num1>10)h+='...';h+=` → <strong>${q.answer}</strong>`;
+            break;
+        case 'div':
+            h+=`Think: ${q.num2} × ? = ${q.num1} → ${q.num2}×<strong>${q.answer}</strong>=${q.num1}`;
+            break;
+    }
+    box.innerHTML=h;
+}
+
+// ================================================================
+//  SYNC MULTIPLAYER
+// ================================================================
+function syncProgress(){
+    if(S.mode==='solo'||!S.roomRef||!db)return;
+    S.roomRef.child('players/'+S.myId).update({
+        progress:S.progress,correct:S.correct,wrong:S.wrong,qIndex:S.qIndex,
+    }).catch(()=>{});
+}
+
+function updateMultiplayerTrack(data){
+    if(!data.players)return;
+    Object.entries(data.players).forEach(([id,p])=>{
+        if(id!==S.myId)moveRacer('racer_'+id,p.progress||0);
+    });
+}
+
+// ================================================================
+//  FINISH / END
+// ================================================================
+function finishPlayer(){
+    if(S.finishOrder.includes('player')||S.raceFinished)return;
+    S.finishOrder.push('player');S.progress=100;
+    moveRacer('myRacer',100);clearTimeout(S.autoNextTimer);
+
+    document.getElementById('answerInput').disabled=true;
+    document.getElementById('submitBtn').disabled=true;
+
+    if(S.mode!=='solo'&&S.roomRef&&db){
+        S.roomRef.child('players/'+S.myId).update({
+            progress:100,finished:true,
+            finishTime:firebase.database.ServerValue.TIMESTAMP,
+            correct:S.correct,wrong:S.wrong,
+        }).catch(()=>{});
+    }
+    setTimeout(()=>checkRaceEnd(),500);
+}
+
+function checkRaceEnd(){
+    const playerDone=S.progress>=100||S.qIndex>=S.totalQs;
+    const allAIDone=S.aiConfig.every((ai,i)=>ai.speed<=0||S.aiProgress[i]>=100);
+
+    if(S.mode==='solo'){
+        if(playerDone||allAIDone)endRace();
+    } else {
+        if(S.isHost&&playerDone){
+            const data=S.roomData;
+            if(data){
+                const allHumans=Object.values(data.players||{}).every(p=>p.finished||p.progress>=100);
+                if(allHumans||allAIDone){
+                    S.roomRef.update({state:'finished'}).catch(()=>{});
+                }
+            }
+        }
+        if(playerDone&&allAIDone&&S.isHost){
+            S.roomRef.update({state:'finished'}).catch(()=>{});
+        }
+    }
+}
+
+function endRace(){
+    if(S.raceFinished)return;S.raceFinished=true;
+    clearInterval(S.timerIntv);clearInterval(S.aiIntv);clearTimeout(S.autoNextTimer);
+
+    document.getElementById('answerInput').disabled=true;
+    document.getElementById('submitBtn').disabled=true;
+
+    if(!S.finishOrder.includes('player'))S.finishOrder.push('player');
+    S.aiConfig.forEach((ai,i)=>{
+        const k='ai_'+i;if(ai.speed>0&&!S.finishOrder.includes(k))S.finishOrder.push(k);
+    });
+
+    if(S.mode==='solo')setTimeout(()=>showSoloResults(),1000);
+}
+
+// ================================================================
+//  RESULTS
+// ================================================================
+function showSoloResults(){
+    showScreen('resultsScreen');
+    const entries=[];
+    entries.push({name:S.name,emoji:S.racerEmoji,progress:S.progress,isPlayer:true,isAI:false});
+    S.aiConfig.forEach((ai,i)=>{
+        if(ai.speed>0)entries.push({name:ai.name,emoji:ai.emoji,progress:S.aiProgress[i],isPlayer:false,isAI:true});
+    });
+    entries.sort((a,b)=>b.progress-a.progress);
+    displayResults(entries);
+}
+
+function showMultiplayerResults(data){
+    showScreen('resultsScreen');
+    const entries=[];
+    Object.entries(data.players||{}).forEach(([id,p])=>{
+        entries.push({name:p.name,emoji:p.emoji,progress:p.progress||0,isPlayer:(id===S.myId),isAI:false});
+    });
+    (data.settings.aiConfig||[]).forEach((ai,i)=>{
+        if(ai.speed>0)entries.push({name:ai.name,emoji:ai.emoji,progress:S.aiProgress[i]||0,isPlayer:false,isAI:true});
+    });
+    entries.sort((a,b)=>b.progress-a.progress);
+    displayResults(entries);
+}
+
+function displayResults(entries){
+    const pct=S.totalQs>0?Math.round((S.correct/S.totalQs)*100):0;
+    const pos=entries.findIndex(e=>e.isPlayer)+1;
+
+    let trophy,title;
+    if(pos===1){trophy='🏆';title='YOU WON!';launchConfetti(45);}
+    else if(pos===2){trophy='🥈';title='2nd Place!';launchConfetti(20);}
+    else if(pos===3){trophy='🥉';title='3rd Place!';launchConfetti(10);}
+    else{trophy='⭐';title='Good Effort!';}
+
+    document.getElementById('resultsTrophy').textContent=trophy;
+    document.getElementById('resultsTitle').textContent=title;
+    document.getElementById('resultsSub').textContent=`Well done, ${S.name}! Position ${pos} of ${entries.length}`;
+
+    const posE=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣'];
+    const el=document.getElementById('finalStandings');el.innerHTML='';
+    entries.forEach((e,i)=>{
+        const row=document.createElement('div');
+        row.className='standing-row'+(e.isPlayer?' is-you':'');
+        row.innerHTML=`<span class="standing-pos">${posE[i]||i+1}</span>
+            <span class="standing-emoji">${e.emoji}</span>
+            <span class="standing-name">${e.name}${e.isPlayer?' (YOU)':''}${e.isAI?' 🤖':''}</span>
+            <span class="standing-pct">${Math.round(e.progress)}%</span>`;
+        el.appendChild(row);
+    });
+
+    const m=Math.floor(S.timerSec/60),s=S.timerSec%60;
+    document.getElementById('resultsStatsGrid').innerHTML=`
+        <div class="r-stat"><div class="r-stat-val">${S.correct}/${S.totalQs}</div><div class="r-stat-lbl">Correct ✅</div></div>
+        <div class="r-stat"><div class="r-stat-val">${pct}%</div><div class="r-stat-lbl">Score 🎯</div></div>
+        <div class="r-stat"><div class="r-stat-val">${m}:${s<10?'0':''}${s}</div><div class="r-stat-lbl">Time ⏱️</div></div>
+        <div class="r-stat"><div class="r-stat-val">${S.bestStreak}</div><div class="r-stat-lbl">Best Streak 🔥</div></div>
+        <div class="r-stat"><div class="r-stat-val">${S.wrong}</div><div class="r-stat-lbl">Mistakes ❌</div></div>
+        <div class="r-stat"><div class="r-stat-val">#${pos}</div><div class="r-stat-lbl">Position 🏁</div></div>`;
+
+    let msg;
+    if(pct===100&&pos===1)msg='🌟 PERFECT RACE! Every answer right AND first place!';
+    else if(pct===100)msg='🧠 All correct! Answer faster to beat more racers!';
+    else if(pos===1)msg='🏆 You won! Practice the missed ones for a perfect score!';
+    else if(pct>=70)msg='💪 Great job! Keep practicing to get faster!';
+    else if(pct>=50)msg='📚 Good effort! Try easier level to build confidence!';
+    else msg=`🌱 Keep going, ${S.name}! Every practice makes you better!`;
+    document.getElementById('resultsMsg').innerHTML=msg;
+
+    const wr=document.getElementById('wrongReview'),wl=document.getElementById('wrongList');
+    if(S.wrongList.length>0){
+        wr.style.display='block';wl.innerHTML='';
+        S.wrongList.forEach(w=>{
+            const d=document.createElement('div');d.className='review-item';
+            d.innerHTML=`<span class="review-q">${w.q}</span><span>You: ${w.given}</span><span class="review-a">Answer: ${w.correct}</span>`;
+            wl.appendChild(d);
+        });
+    }else{wr.style.display='none';}
+}
+
+// ================================================================
+//  PLAY AGAIN / CLEANUP
+// ================================================================
+function playAgain(){
+    if(S.mode==='solo'){
+        S.sharedQuestions=generateAllQuestions();
+        initGameState();showScreen('gameScreen');
+        runCountdown(()=>{buildRaceTrack();beginRace();});
+    }else{
+        if(S.isHost&&S.roomRef){
+            const newQs=generateAllQuestions();
+            S.roomRef.update({state:'lobby',questions:newQs,startTime:null}).catch(()=>{});
+            Object.keys(S.roomData?.players||{}).forEach(id=>{
+                S.roomRef.child('players/'+id).update({
+                    progress:0,correct:0,wrong:0,finished:false,finishTime:null,qIndex:0
+                }).catch(()=>{});
+            });
+        }
+        S.raceFinished=false;
+        showScreen('lobbyScreen');
+    }
+}
+
+function leaveLobby(){cleanup();S=resetState();buildAIConfig();showScreen('homeScreen');}
+
+function cleanup(){
+    clearInterval(S.timerIntv);clearInterval(S.aiIntv);clearTimeout(S.autoNextTimer);
+    S.unsubscribers.forEach(fn=>fn());S.unsubscribers=[];
+    disconnectFirebase();
+}
+
+function copyRoomCode(){
+    const code=S.roomCode;
+    if(navigator.clipboard){
+        navigator.clipboard.writeText(code).then(()=>toast('Code copied! '+code,'success')).catch(()=>{});
+    }else{
+        const ta=document.createElement('textarea');ta.value=code;document.body.appendChild(ta);
+        ta.select();document.execCommand('copy');document.body.removeChild(ta);
+        toast('Code copied! '+code,'success');
+    }
+}
+
+// ================================================================
+//  UTILITIES
+// ================================================================
+function launchConfetti(count){
+    const c=document.getElementById('celebrationLayer');
+    const colors=['#e74c3c','#f39c12','#2ecc71','#3498db','#9b59b6','#e84393','#fdcb6e','#00cec9'];
+    for(let i=0;i<count;i++){
+        setTimeout(()=>{
+            const p=document.createElement('div');p.className='confetti-piece';
+            p.style.left=Math.random()*100+'%';p.style.top='-10px';
+            p.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+            p.style.animationDuration=(2+Math.random()*3)+'s';
+            p.style.width=(6+Math.random()*10)+'px';
+            p.style.height=(6+Math.random()*10)+'px';
+            p.style.borderRadius=Math.random()>.5?'50%':'2px';
+            c.appendChild(p);setTimeout(()=>p.remove(),5000);
+        },i*70);
+    }
+}
+
+function floatText(text,color){
+    const el=document.createElement('div');el.className='float-text';
+    el.textContent=text;el.style.color=color||'white';
+    document.body.appendChild(el);setTimeout(()=>el.remove(),1800);
+}
+
+function toast(msg,type){
+    const ex=document.querySelector('.toast');if(ex)ex.remove();
+    const t=document.createElement('div');t.className='toast '+(type||'');
+    t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),3500);
+}
+
+window.addEventListener('beforeunload',()=>{
+    if(S.roomRef&&S.myId&&db){
+        try{S.roomRef.child('players/'+S.myId).remove();}catch(e){}
+    }
+});
+</script>
+
+</body>
+</html>
